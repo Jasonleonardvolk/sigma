@@ -1,0 +1,34 @@
+SIGMA Scale Validation Results
+===============================
+Run date: April 11-12, 2026
+Machine: i9-13900H, RTX 4060, 64GB RAM (laptop)
+Partition: Fast single-pass Fiedler, shift-invert primary
+
+V           E/V    Cells    Partition    CPU Eigen    ms/vert    Total       Memory
+-------------------------------------------------------------------------------------
+50,000      3.01   431      59.8 s       192.9 s      3.858      5 min       1.6 GB
+100,000     3.00   890      238.3 s      337.4 s      3.374      16 min      3.1 GB
+250,000     3.01   2,200    940.7 s      913.6 s      3.655      52 min      7.4 GB
+1,000,000   3.00   8,663    23283.5 s    3550.3 s     3.550      13.3 hr     28.6 GB
+
+Nerve complexity:
+  V=50,000:    431 cells, 1,447 nerve edges, max dim 3, 2,107 simplices
+  V=100,000:   890 cells, 3,672 nerve edges, max dim 4, 5,219 simplices
+  V=250,000:   2,200 cells, 7,959 nerve edges, max dim 4, 11,473 simplices
+  V=1,000,000: 8,663 cells, 27,308 nerve edges, max dim 4, 39,873 simplices
+
+Scaling trend (CPU eigen per-vertex):
+  V=50,000     3.858 ms/vertex  ###################
+  V=100,000    3.374 ms/vertex  ################
+  V=250,000    3.655 ms/vertex  ##################
+  V=1,000,000  3.550 ms/vertex  #################
+
+ALL SCALES PASSED -- ZERO CRASHES
+
+Notes:
+  - Results on synthetic random geometric graphs (E/V=3.0, stalk_dim=8)
+  - Performance on production knowledge graphs depends on graph topology,
+    restriction map conditioning, and hardware
+  - Per-vertex eigensolve cost is constant (CV=5.9%) across 20x scale range
+  - Partition time dominates at V=1M (cell construction Python loop overhead)
+  - Eigensolve time scales linearly as expected

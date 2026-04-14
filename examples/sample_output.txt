@@ -1,0 +1,43 @@
+SIGMA Verification Report
+=========================
+Timestamp: 2026-04-12 14:23:07
+Input: Legal reasoning chain (6 claims, 15 relationships)
+Sheaf: V=6 E=15 stalk_dim=8
+
+Detection Phase
+---------------
+  Sheaf Laplacian dimension: 48 x 48
+  Eigensolve time: 1.2 ms
+  H^0 (connected components): 1
+  H^1 (irreconcilable contradictions): 3
+
+Localization (per-edge Dirichlet energy)
+-----------------------------------------
+  Claim 2 <-> Claim 3:  E = 847.3  [OBSTRUCTION]
+    Force majeure extension conflicts with original deadline
+    penalty activation. No local adjustment resolves this.
+
+  Claim 3 <-> Claim 6:  E = 612.9  [OBSTRUCTION]
+    Penalty clause triggers on deadline, but no penalties
+    assessed or waived. Structurally incompatible.
+
+  Claim 4 <-> Claim 6:  E = 491.2  [OBSTRUCTION]
+    Insurance coverage defined for extension period, but
+    no penalties exist to cover. Vacuous constraint.
+
+  Claim 1 <-> Claim 2:  E = 0.03   [CONSISTENT]
+  Claim 1 <-> Claim 3:  E = 0.01   [CONSISTENT]
+  Claim 5 <-> Claim 6:  E = 0.07   [CONSISTENT]
+
+Summary
+-------
+  Contradictions detected:   3
+  Consistent relationships:  12
+  False positives:           0
+  Total verification time:   47 ms
+  Obstruction dimension:     H^1 = 3
+
+Each obstruction is algebraically certified: no assignment
+of values to the 6 claim stalks can simultaneously satisfy
+all 15 restriction map constraints. The contradictions are
+structural, not parametric.

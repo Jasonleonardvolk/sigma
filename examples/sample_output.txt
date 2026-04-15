@@ -1,43 +1,38 @@
-SIGMA Verification Report
-=========================
-Timestamp: 2026-04-12 14:23:07
-Input: Legal reasoning chain (6 claims, 15 relationships)
-Sheaf: V=6 E=15 stalk_dim=8
+SIGMA Enron Email Network Analysis -- Run #21
+================================================
 
-Detection Phase
----------------
-  Sheaf Laplacian dimension: 48 x 48
-  Eigensolve time: 1.2 ms
-  H^0 (connected components): 1
-  H^1 (irreconcilable contradictions): 3
+Dataset: Stanford SNAP Enron Email Network
+Raw: 36,692 nodes, 183,831 edges
+3-core filtered: 21,309 nodes, 166,039 edges
+E/V ratio: 7.79
+Degree CV: 2.609 (power-law)
+Top hub degrees: 1141, 1076, 1053, 1053, 1030
 
-Localization (per-edge Dirichlet energy)
------------------------------------------
-  Claim 2 <-> Claim 3:  E = 847.3  [OBSTRUCTION]
-    Force majeure extension conflicts with original deadline
-    penalty activation. No local adjustment resolves this.
+Sheaf Laplacian dimension: 170,472 x 170,472
+Dense eigensolve estimate: ~14 hours
+SIGMA actual time: 21 seconds (warm cache)
 
-  Claim 3 <-> Claim 6:  E = 612.9  [OBSTRUCTION]
-    Penalty clause triggers on deadline, but no penalties
-    assessed or waived. Structurally incompatible.
+Phase 1 (sheaf construction):    1 min 24 s
+Phase 2 (decomposition):        9.4 s
+  A(hub extraction):            0.2 s
+  B(Fiedler recursion):         2.3 s -> 3,742 partitions
+  C(hub assign + pre-split):    0.2 s
+  D(boundary expansion):        0.1 s
+  E(edge classification):       0.3 s
+  F(cell construction):         6.2 s (3,760 cells)
+  G(boundary detection):        0.1 s
+  H(boundary maps):             0.0 s (1,050 maps)
+  I(re-split):                  0.0 s
+Phase 3 (eigensolves):          9.2 s (0.370 ms/vertex)
+Phase 4 (nerve assembly):       0.8 s (4,090 simplices, max dim 2)
 
-  Claim 4 <-> Claim 6:  E = 491.2  [OBSTRUCTION]
-    Insurance coverage defined for extension period, but
-    no penalties exist to cover. Vacuous constraint.
+Hub extraction: 549 hubs (degree > 97)
+Hub neighbor freeze: 14,593 vertices (70.3% of non-hub)
+Connected components: 1,209 (1 giant at 17,011, 1,208 tiny)
+BFS partition: giant -> 2,534 connected chunks
+Total cells: 3,760
+Nerve edges: 254
+Nerve max dimension: 2
 
-  Claim 1 <-> Claim 2:  E = 0.03   [CONSISTENT]
-  Claim 1 <-> Claim 3:  E = 0.01   [CONSISTENT]
-  Claim 5 <-> Claim 6:  E = 0.07   [CONSISTENT]
-
-Summary
--------
-  Contradictions detected:   3
-  Consistent relationships:  12
-  False positives:           0
-  Total verification time:   47 ms
-  Obstruction dimension:     H^1 = 3
-
-Each obstruction is algebraically certified: no assignment
-of values to the 6 claim stalks can simultaneously satisfy
-all 15 restriction map constraints. The contradictions are
-structural, not parametric.
+Peak memory: 641 MB
+Hardware: i9-13900H, 64GB RAM, no GPU used

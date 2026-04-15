@@ -11,7 +11,7 @@ url: "https://invariant.pro"
 repository-code: "https://github.com/jasonvolk/sigma"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.19360505"
+    value: "10.5281/zenodo.19598076"
 keywords:
   - sheaf cohomology
   - knowledge graph verification

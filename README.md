@@ -151,7 +151,7 @@ Seed      Time     ms/vertex    Cells    Nerve Edges    Max Dim
 
 - Provisional patent filed (U.S. App# 64/023,418, March 2026)
 - ICML 2026 AI4Math Workshop submission in progress (deadline May 25)
-- Preprint: [Zenodo DOI 10.5281/zenodo.19360505](https://zenodo.org/records/19360505)
+- Preprint: [Zenodo DOI 10.5281/zenodo.19598076](https://zenodo.org/records/19598076)
 - HuggingFace demo: [jasonlvolk/sigma-enron-demo](https://huggingface.co/spaces/jasonlvolk/sigma-enron-demo)
 
 ## Applications

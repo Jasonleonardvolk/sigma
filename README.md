@@ -85,21 +85,25 @@ Vertices    Topology          Cells    Cost/Entity    Peak RAM    Crashes
 
 ## Decomposition Pipeline
 
-Six layers, each enabling the next:
+SIGMA decomposes the graph into bounded cells so that no
+eigensolve ever exceeds a fixed vertex limit. Global
+cohomology is recovered via the Cech spectral sequence on
+the nerve complex.
 
-1. **Hub Extraction** -- Remove vertices with degree > mean + 2*std. Makes graph spectrally tractable by removing vertices whose degree dominates the Fiedler vector.
+- Decomposition cost: O(V+E)
+- Per-cell eigensolve: O(constant)
+- Total cost: O(n)
+- Nerve max dimension: 2
+- Partition determinism: topology-dependent only
 
-2. **Hub Neighbor Freeze** -- Freeze 1-hop non-hub neighbors during boundary expansion. Prevents the "density shadow" from inflating cells past v_max.
+The O(n^3) eigensolve is factored into bounded subproblems.
+The cube is imprisoned inside a constant.
 
-3. **Connected Components** -- BFS detection of disconnected islands after hub removal. On Enron, hub removal shatters the graph into 1,209 components (1 giant at 17,011, 1,208 tiny).
+The pipeline handles power-law graphs, geometric graphs, and
+mixed topologies. Validated from V=21K to V=1M with constant
+per-vertex cost.
 
-4. **BFS Balanced Partitioning** -- For large components (V > 5,000), carve connected chunks of ~v_max via BFS instead of spectral bisection. O(V+E). Eliminates the spectral bottleneck entirely.
-
-5. **K-Doubling Cap** -- For cells with sheaf Laplacian dim > 1,600, one ARPACK attempt at k=30, immediate fallback if ill-conditioned.
-
-6. **Clean Split** -- Post-expansion re-splits with no boundary vertex duplication. Nerve stays at max dimension 2.
-
-The pipeline is a dependency chain: hub extraction creates disconnection, connected components detect it, BFS resolves it.
+Patent pending. Pipeline details are proprietary.
 
 ## Architecture
 
@@ -107,22 +111,16 @@ The pipeline is a dependency chain: hub extraction creates disconnection, connec
 Knowledge Graph
       |
       v
-  Sheaf Construction (restriction maps, Purity Gate: sigma_max <= 0.99)
+  Sheaf Construction (restriction maps, contractivity enforced)
       |
       v
-  Hub Extraction (degree > mean + 2*std)
+  Multi-stage Decomposition Pipeline (O(V+E))
       |
       v
-  Connected Components (BFS, O(V+E))
+  Per-Cell Eigensolves (bounded, independent)
       |
       v
-  BFS Balanced Partitioning (giant component -> bounded chunks)
-      |
-      v
-  Per-Cell Eigensolves (H^1, lambda_2, Dirichlet energy)
-      |
-      v
-  Nerve Assembly (Cech spectral sequence, max dim 2)
+  Nerve Assembly (Cech spectral sequence)
       |
       v
   Contradiction Report (locations, severity, algebraic proof)

@@ -19,7 +19,7 @@
     "certification_basis": "h1_source_conflict",
     "input_hash": "4c2388cc40f2680b",
     "source_hashes": [],
-    "timestamp": "2026-05-18T01:58:21.705743+00:00",
+    "timestamp": "2026-05-18T18:09:12.720401+00:00",
     "satya_version": "0.1.0",
     "sigma_version": "1.0.0",
     "public_key": null
@@ -373,7 +373,7 @@
   "items_passed": 7,
   "items_failed": 5,
   "items_excluded": 0,
-  "latency_ms": 33.8,
+  "latency_ms": 42.1,
   "remediation_summary": {
     "repairs_required": 5,
     "critical_repairs": 2,
@@ -399,7 +399,7 @@
       "repair_id": "R-003",
       "repair_type": "EXTEND_COVERAGE",
       "target": "PolicyCoverage",
-      "expected_change": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+      "expected_change": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'alerting', 'incident_monitoring'}, expected: {'incident_response'})",
       "affected_constraints": [
         "PolicyCoverage"
       ],
@@ -479,7 +479,7 @@
       "repair_id": "R-003",
       "repair_type": "EXTEND_COVERAGE",
       "target": "PolicyCoverage",
-      "action": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+      "action": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'alerting', 'incident_monitoring'}, expected: {'incident_response'})",
       "severity": "CRITICAL",
       "submission_risk": 4,
       "effort": 3,
@@ -520,7 +520,7 @@
     "policy_updates_required": [
       {
         "repair_id": "R-003",
-        "description": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+        "description": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'alerting', 'incident_monitoring'}, expected: {'incident_response'})",
         "target": "PolicyCoverage"
       }
     ],
@@ -532,12 +532,12 @@
     "residual_risk_notes": []
   },
   "repair_strategy": "deterministic_obstruction_core_hitting_set",
-  "repair_set_hash": "0ff27ba570be83d3",
+  "repair_set_hash": "3cb54edc71a2a99d",
   "repair_minimality_claim": "minimal_over_detected_obstruction_cores",
   "closure_receipt": {
     "closure_receipt_required": true,
     "finding_receipt_id": "SATYA-20260518-4C2388CC",
-    "repair_set_hash_to_verify": "0ff27ba570be83d3",
+    "repair_set_hash_to_verify": "3cb54edc71a2a99d",
     "expected_closure_type": "compliance_closure"
   },
   "svr_version": "1.0",
@@ -549,13 +549,141 @@
   "filing_safety_status": "UNSAFE_TO_SUBMIT",
   "safe_to_rely": false,
   "reason": "h1_source_conflict",
-  "timestamp_utc": "2026-05-18T01:58:21.705743+00:00",
+  "timestamp_utc": "2026-05-18T18:09:12.720401+00:00",
   "engine_version": "satya/0.1.0 sigma/1.0.0",
   "policy_profile": null,
   "verify_url": "https://invariant.pro/verify/SATYA-20260518-4C2388CC",
   "constraint_layer_version": "1.0.0",
   "primitive_manifest_hash": "25a6dd9398d54d37",
-  "public_key": "85a46274cd49c2a8f2ac0baa807b4366ad41049b003d7b61429b415cd8234603",
-  "signature": "3ec6bc968a274ed2a2bd5728bdd7c31f4333da0a8191f04ed55479f4d56bbf323339fef164cfb7f08b4e35aa82dd9d46cd411cf85f0de34c648eaa512c3c2c01",
+  "vertical_extension": {
+    "extension_schema": "satya.svr.extension.soc2.v1",
+    "framework": "SOC 2",
+    "criteria_set": "AICPA Trust Services Criteria",
+    "criteria_evaluated": [
+      "AuditPeriodDate",
+      "CriterionMapping",
+      "EvidenceCoverage",
+      "FrequencyMatch",
+      "OwnerAssignment",
+      "PolicyCoverage"
+    ],
+    "controls_evaluated": 12,
+    "evidence_items_evaluated": 12,
+    "coverage_summary": {
+      "covered": 7,
+      "partial": 0,
+      "missing": 0,
+      "contradicted": 5
+    },
+    "control_claims": [
+      {
+        "criterion": "PolicyCoverage",
+        "constraint": "PolicyCoverage",
+        "verdict": "PASS",
+        "compatibility": 1.0
+      },
+      {
+        "criterion": "EvidenceCoverage",
+        "constraint": "EvidenceCoverage",
+        "verdict": "PASS",
+        "compatibility": 1.0
+      },
+      {
+        "criterion": "AuditPeriodDate",
+        "constraint": "AuditPeriodDate",
+        "verdict": "PASS",
+        "compatibility": 0.9748
+      },
+      {
+        "criterion": "OwnerAssignment",
+        "constraint": "OwnerAssignment",
+        "verdict": "PASS",
+        "compatibility": 1.0
+      },
+      {
+        "criterion": "FrequencyMatch",
+        "constraint": "FrequencyMatch",
+        "verdict": "PASS",
+        "compatibility": 1.0
+      },
+      {
+        "criterion": "CriterionMapping",
+        "constraint": "CriterionMapping",
+        "verdict": "PASS",
+        "compatibility": 1.0
+      },
+      {
+        "criterion": "PolicyCoverage",
+        "constraint": "PolicyCoverage",
+        "verdict": "FAIL",
+        "compatibility": 0.0
+      },
+      {
+        "criterion": "EvidenceCoverage",
+        "constraint": "EvidenceCoverage",
+        "verdict": "FAIL",
+        "compatibility": 0.1
+      },
+      {
+        "criterion": "AuditPeriodDate",
+        "constraint": "AuditPeriodDate",
+        "verdict": "FAIL",
+        "compatibility": 0.1997
+      },
+      {
+        "criterion": "OwnerAssignment",
+        "constraint": "OwnerAssignment",
+        "verdict": "FAIL",
+        "compatibility": 0.0
+      },
+      {
+        "criterion": "FrequencyMatch",
+        "constraint": "FrequencyMatch",
+        "verdict": "FAIL",
+        "compatibility": 0.0571
+      },
+      {
+        "criterion": "CriterionMapping",
+        "constraint": "CriterionMapping",
+        "verdict": "PASS",
+        "compatibility": 1.0
+      }
+    ],
+    "unsupported_controls": [],
+    "contradicted_controls": [
+      {
+        "criterion": "PolicyCoverage",
+        "constraint": "PolicyCoverage",
+        "verdict": "FAIL",
+        "compatibility": 0.0
+      },
+      {
+        "criterion": "EvidenceCoverage",
+        "constraint": "EvidenceCoverage",
+        "verdict": "FAIL",
+        "compatibility": 0.1
+      },
+      {
+        "criterion": "AuditPeriodDate",
+        "constraint": "AuditPeriodDate",
+        "verdict": "FAIL",
+        "compatibility": 0.1997
+      },
+      {
+        "criterion": "OwnerAssignment",
+        "constraint": "OwnerAssignment",
+        "verdict": "FAIL",
+        "compatibility": 0.0
+      },
+      {
+        "criterion": "FrequencyMatch",
+        "constraint": "FrequencyMatch",
+        "verdict": "FAIL",
+        "compatibility": 0.0571
+      }
+    ]
+  },
+  "public_key": "a25ff266a732558d29feac78958e6e79a6d027f36834a352a9efe556784ba175",
+  "signature": "3f29ede6d88712a7db259d94a8bc5b11702df32940deca1dc236ba83b12b969f3008fae31db5a6bde69b8af9cf28e29c9e60749a8b8157a8a69a0718f9431605",
   "signature_status": "VALID"
 }

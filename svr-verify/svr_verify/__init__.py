@@ -31,6 +31,7 @@ from svr_verify.validate import (
 )
 
 from svr_verify.cli import verify_file
+from svr_verify.render import render_html
 
 
 def verify(path):

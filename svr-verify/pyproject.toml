@@ -49,3 +49,6 @@ Schema = "https://github.com/Jasonleonardvolk/sigma/blob/main/satya/spec/svr_sch
 
 [tool.setuptools.packages.find]
 include = ["svr_verify*"]
+
+[tool.setuptools.package-data]
+svr_verify = ["*.html"]

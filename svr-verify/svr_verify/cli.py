@@ -68,11 +68,12 @@ def main(args=None):
         print("svr-verify: Signed Verification Receipt verifier")
         print()
         print("Usage:")
-        print("  svr-verify <receipt.svr.json> [--json]")
+        print("  svr-verify <receipt.svr.json> [options]")
         print()
         print("Options:")
-        print("  --json    Output results as JSON")
-        print("  --quiet   Only print VALID or INVALID")
+        print("  --json           Output results as JSON")
+        print("  --quiet          Only print VALID or INVALID")
+        print("  --render <path>  Render receipt as HTML file")
         print()
         print("Exit codes:")
         print("  0  Valid receipt with valid signature")
@@ -83,6 +84,11 @@ def main(args=None):
     path = args[0]
     json_output = "--json" in args
     quiet = "--quiet" in args
+    render_path = None
+    if "--render" in args:
+        ri = args.index("--render")
+        if ri + 1 < len(args):
+            render_path = args[ri + 1]
 
     try:
         result = verify_file(path)
@@ -98,6 +104,20 @@ def main(args=None):
         else:
             print("Error: Invalid JSON: %s" % str(e))
         return 2
+
+    # Render HTML if requested
+    if render_path:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                receipt = json.load(f)
+            from svr_verify.render import render_html
+            html = render_html(receipt)
+            with open(render_path, "w", encoding="utf-8") as f:
+                f.write(html)
+            if not quiet:
+                print("Rendered: %s" % render_path)
+        except Exception as e:
+            print("Render error: %s" % str(e))
 
     if json_output:
         print(json.dumps(result, indent=2))

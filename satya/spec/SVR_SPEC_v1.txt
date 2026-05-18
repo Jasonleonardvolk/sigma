@@ -57,9 +57,14 @@ may be omitted; consumers MUST tolerate their absence.
 
   receipt_id              [REQUIRED] string
       Globally unique identifier.
-      Format: SATYA-YYYYMMDD-HASH8
-      where HASH8 is the first 8 hex characters of SHA-256(input).
+      Format: PREFIX-YYYYMMDD-HASH8
+      where PREFIX identifies the issuing engine (e.g., SATYA,
+      HARVEY, TR), YYYYMMDD is the date, and HASH8 is the first
+      8 hex characters of SHA-256(input).
       Example: "SATYA-20260517-A3743D85"
+      The prefix is issuer-defined. Any alphanumeric prefix is
+      valid. Consumers MUST NOT reject a receipt solely because
+      the prefix is unfamiliar.
 
   receipt_type            [REQUIRED] string
       Domain adapter label from the type registry (Section 2).
@@ -301,7 +306,63 @@ may be omitted; consumers MUST tolerate their absence.
       Populated only by the supersession query API, never at
       issuance time (the issuer does not know the future).
 
-3.13 CRYPTOGRAPHIC SIGNATURE
+3.13 VERIFICATION METHOD
+------------------------------------------------------------------------
+
+  verification_method     [REQUIRED] string
+      Declares HOW the verification was performed. This field is
+      the disclosure trigger: every issuer must declare their
+      methodology in a structured, machine-readable value.
+
+      The taxonomy is categorical, not free-text. If a probabilistic
+      component exists anywhere in the verification path, the method
+      is probabilistic. The weakest link defines the chain.
+
+      Valid values:
+        "deterministic_algebraic"    Zero probabilistic components.
+                                     Algebraic or topological
+                                     verification. Replayable.
+                                     Same input, same result,
+                                     every time.
+        "deterministic_rule_based"   Traditional rule engine.
+                                     No ML. Replayable.
+        "probabilistic_llm"          LLM anywhere in the
+                                     verification loop. Not
+                                     replayable.
+        "probabilistic_statistical"  Statistical model anywhere
+                                     in the loop. Not replayable.
+        "human_review"               Manual verification. Not
+                                     replayable.
+        "unspecified"                Issuer declined to declare.
+                                     Consumers SHOULD treat as
+                                     probabilistic.
+
+      There is no hybrid category. If an LLM performs extraction
+      and a rule engine performs checking, the verification_method
+      is "probabilistic_llm" because the inputs to the rule engine
+      are probabilistic. The weakest link defines the chain.
+
+      The claim "deterministic_algebraic" or "deterministic_rule_based"
+      is falsifiable: run the verification twice with the same input
+      and replay_seed. If the results differ, the claim is false.
+
+  verification_parameters [OPTIONAL] object
+      Structured metadata about what was in the verification loop.
+
+      ml_models_used          integer   Number of ML models in the
+                                        verification path. 0 for
+                                        deterministic methods.
+      gpu_required            boolean   Whether GPU was needed.
+      training_data_required  boolean   Whether the verification
+                                        method required training data.
+      deterministic_replay    boolean   Whether the same input
+                                        produces the same result
+                                        every time.
+      parameter_count         integer   Total trainable parameters
+                                        in the verification path.
+                                        0 for deterministic methods.
+
+3.14 CRYPTOGRAPHIC SIGNATURE
 ------------------------------------------------------------------------
 
   public_key              [REQUIRED] string
@@ -319,14 +380,14 @@ may be omitted; consumers MUST tolerate their absence.
       serialization (Section 4) using the public_key before
       trusting signature_status.
 
-3.14 VERIFICATION
+3.15 VERIFICATION
 ------------------------------------------------------------------------
 
   verify_url              [OPTIONAL] string
       URL for independent receipt verification.
       Example: "https://invariant.pro/verify/SATYA-20260517-A3743D85"
 
-3.15 PERFORMANCE
+3.16 PERFORMANCE
 ------------------------------------------------------------------------
 
   latency_ms              [OPTIONAL] float
@@ -338,7 +399,7 @@ may be omitted; consumers MUST tolerate their absence.
   compute_ms              [OPTIONAL] float
       Wall-clock milliseconds spent on sheaf cohomology computation.
 
-3.16 CONSTRAINT LAYER
+3.17 CONSTRAINT LAYER
 ------------------------------------------------------------------------
 
   constraint_layer_version  [OPTIONAL] string
@@ -374,7 +435,7 @@ may be omitted; consumers MUST tolerate their absence.
         explanation       string   Human-readable receipt fragment
         purity_gate_certified  boolean  Map pair passed Purity Gate
 
-3.17 REMEDIATION
+3.18 REMEDIATION
 ------------------------------------------------------------------------
 
   remediation_summary         [OPTIONAL] object

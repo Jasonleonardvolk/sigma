@@ -19,7 +19,7 @@
     "certification_basis": "h1_source_conflict",
     "input_hash": "4c2388cc40f2680b",
     "source_hashes": [],
-    "timestamp": "2026-05-18T18:09:12.720401+00:00",
+    "timestamp": "2026-05-18T19:26:08.820581+00:00",
     "satya_version": "0.1.0",
     "sigma_version": "1.0.0",
     "public_key": null
@@ -373,7 +373,7 @@
   "items_passed": 7,
   "items_failed": 5,
   "items_excluded": 0,
-  "latency_ms": 42.1,
+  "latency_ms": 15.9,
   "remediation_summary": {
     "repairs_required": 5,
     "critical_repairs": 2,
@@ -399,7 +399,7 @@
       "repair_id": "R-003",
       "repair_type": "EXTEND_COVERAGE",
       "target": "PolicyCoverage",
-      "expected_change": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'alerting', 'incident_monitoring'}, expected: {'incident_response'})",
+      "expected_change": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'incident_monitoring', 'alerting'}, expected: {'incident_response'})",
       "affected_constraints": [
         "PolicyCoverage"
       ],
@@ -479,7 +479,7 @@
       "repair_id": "R-003",
       "repair_type": "EXTEND_COVERAGE",
       "target": "PolicyCoverage",
-      "action": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'alerting', 'incident_monitoring'}, expected: {'incident_response'})",
+      "action": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'incident_monitoring', 'alerting'}, expected: {'incident_response'})",
       "severity": "CRITICAL",
       "submission_risk": 4,
       "effort": 3,
@@ -520,7 +520,7 @@
     "policy_updates_required": [
       {
         "repair_id": "R-003",
-        "description": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'alerting', 'incident_monitoring'}, expected: {'incident_response'})",
+        "description": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'anomaly_detection', 'incident_monitoring', 'alerting'}, expected: {'incident_response'})",
         "target": "PolicyCoverage"
       }
     ],
@@ -532,12 +532,12 @@
     "residual_risk_notes": []
   },
   "repair_strategy": "deterministic_obstruction_core_hitting_set",
-  "repair_set_hash": "3cb54edc71a2a99d",
+  "repair_set_hash": "493a4c423cef0d4a",
   "repair_minimality_claim": "minimal_over_detected_obstruction_cores",
   "closure_receipt": {
     "closure_receipt_required": true,
     "finding_receipt_id": "SATYA-20260518-4C2388CC",
-    "repair_set_hash_to_verify": "3cb54edc71a2a99d",
+    "repair_set_hash_to_verify": "493a4c423cef0d4a",
     "expected_closure_type": "compliance_closure"
   },
   "svr_version": "1.0",
@@ -549,12 +549,20 @@
   "filing_safety_status": "UNSAFE_TO_SUBMIT",
   "safe_to_rely": false,
   "reason": "h1_source_conflict",
-  "timestamp_utc": "2026-05-18T18:09:12.720401+00:00",
+  "timestamp_utc": "2026-05-18T19:26:08.820581+00:00",
   "engine_version": "satya/0.1.0 sigma/1.0.0",
   "policy_profile": null,
   "verify_url": "https://invariant.pro/verify/SATYA-20260518-4C2388CC",
   "constraint_layer_version": "1.0.0",
   "primitive_manifest_hash": "25a6dd9398d54d37",
+  "verification_method": "deterministic_algebraic",
+  "verification_parameters": {
+    "ml_models_used": 0,
+    "gpu_required": false,
+    "training_data_required": false,
+    "deterministic_replay": true,
+    "parameter_count": 0
+  },
   "vertical_extension": {
     "extension_schema": "satya.svr.extension.soc2.v1",
     "framework": "SOC 2",
@@ -683,7 +691,7 @@
       }
     ]
   },
-  "public_key": "a25ff266a732558d29feac78958e6e79a6d027f36834a352a9efe556784ba175",
-  "signature": "3f29ede6d88712a7db259d94a8bc5b11702df32940deca1dc236ba83b12b969f3008fae31db5a6bde69b8af9cf28e29c9e60749a8b8157a8a69a0718f9431605",
+  "public_key": "a31b9d940240e6e8f00646bd83ae669c6613b06f9f289efcc8f1ecd635933266",
+  "signature": "bb1e2bff802612eb072745a397d28daf416c93415f3b68f1966623bb2e81d0f9fad115ec8dc2d3d26642cf8fe09841ba7bbcaf379e1fcd345d74921359790e0d",
   "signature_status": "VALID"
 }

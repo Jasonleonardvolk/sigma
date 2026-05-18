@@ -25,7 +25,8 @@
     "engine_version",
     "public_key",
     "signature",
-    "signature_status"
+    "signature_status",
+    "verification_method"
   ],
   "properties": {
     "svr_version": {
@@ -35,8 +36,8 @@
     },
     "receipt_id": {
       "type": "string",
-      "pattern": "^SATYA-[0-9]{8}-[A-Fa-f0-9]{8}$",
-      "description": "Globally unique identifier. Format: SATYA-YYYYMMDD-HASH8"
+      "pattern": "^[A-Za-z0-9]+-[0-9]{8}-[A-Fa-f0-9]{8}$",
+      "description": "Globally unique identifier. Format: PREFIX-YYYYMMDD-HASH8. PREFIX is issuer-defined."
     },
     "receipt_type": {
       "type": "string",
@@ -233,7 +234,30 @@
     },
     "latency_ms": { "type": "number", "minimum": 0 },
     "retrieval_ms": { "type": "number", "minimum": 0 },
-    "compute_ms": { "type": "number", "minimum": 0 }
+    "compute_ms": { "type": "number", "minimum": 0 },
+    "verification_method": {
+      "type": "string",
+      "enum": [
+        "deterministic_algebraic",
+        "deterministic_rule_based",
+        "probabilistic_llm",
+        "probabilistic_statistical",
+        "human_review",
+        "unspecified"
+      ],
+      "description": "How the verification was performed. No hybrid category. If a probabilistic component exists anywhere in the verification path, the method is probabilistic."
+    },
+    "verification_parameters": {
+      "type": "object",
+      "properties": {
+        "ml_models_used": { "type": "integer", "minimum": 0 },
+        "gpu_required": { "type": "boolean" },
+        "training_data_required": { "type": "boolean" },
+        "deterministic_replay": { "type": "boolean" },
+        "parameter_count": { "type": "integer", "minimum": 0 }
+      },
+      "description": "Structured metadata about the verification loop."
+    }
   },
   "definitions": {
     "checked_item": {

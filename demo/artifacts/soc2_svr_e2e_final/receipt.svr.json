@@ -1,0 +1,561 @@
+{
+  "verdict": "contradicted",
+  "safe_to_submit": false,
+  "faithful": false,
+  "contradictions": 5,
+  "unsupported_claims": 0,
+  "sheaf_metrics": {
+    "h1_dimension": 5,
+    "obstruction_count": 5,
+    "cokernel_dimension": 0,
+    "grounding_ratio": 0.5833,
+    "evidence_edges": 12,
+    "claims_extracted": 8,
+    "total_dirichlet_energy": 173.96332
+  },
+  "proof": {
+    "certificate_id": "SATYA-20260518-4C2388CC",
+    "certified": false,
+    "certification_basis": "h1_source_conflict",
+    "input_hash": "4c2388cc40f2680b",
+    "source_hashes": [],
+    "timestamp": "2026-05-18T01:58:21.705743+00:00",
+    "satya_version": "0.1.0",
+    "sigma_version": "1.0.0",
+    "public_key": null
+  },
+  "conflict_details": [],
+  "constraint_results": [
+    {
+      "constraint": "PolicyCoverage",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1 policy coverage: Set A (3 elements) is a subset of B (5 elements)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "EvidenceCoverage",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1 evidence coverage: Set A (3 elements) is a subset of B (3 elements)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "AuditPeriodDate",
+      "verdict": "PASS",
+      "compatibility": 0.9748,
+      "theta_rad": 0.039593,
+      "explanation": "CC6.1 audit period: Dates 2026-04-01 and 2026-05-17 are within 365 days (46 day gap)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "OwnerAssignment",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1: Control owner assigned: Jane Smith, CISO",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "FrequencyMatch",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1: Frequency 'quarterly' meets requirement 'quarterly'",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "CriterionMapping",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "Control correctly maps to CC6.1",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "PolicyCoverage",
+      "verdict": "FAIL",
+      "compatibility": 0.0,
+      "theta_rad": 1.570796,
+      "explanation": "CC7.2 policy coverage: Set A is NOT a subset of B (3 of 3 elements missing)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "EvidenceCoverage",
+      "verdict": "FAIL",
+      "compatibility": 0.1,
+      "theta_rad": 1.413717,
+      "explanation": "CC7.2 evidence coverage: Set A is NOT a subset of B (2 of 3 elements missing)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "AuditPeriodDate",
+      "verdict": "FAIL",
+      "compatibility": 0.1997,
+      "theta_rad": 1.257067,
+      "explanation": "CC7.2 audit period: Dates 2025-01-15 and 2026-05-17 exceed 365-day window (487 day gap, 122 days over)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "OwnerAssignment",
+      "verdict": "FAIL",
+      "compatibility": 0.0,
+      "theta_rad": 1.570796,
+      "explanation": "CC7.2: No control owner assigned",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "FrequencyMatch",
+      "verdict": "FAIL",
+      "compatibility": 0.0571,
+      "theta_rad": 1.481037,
+      "explanation": "CC7.2: Frequency 'annual' is less than required 'continuous'",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "CriterionMapping",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "Control correctly maps to CC7.2",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    }
+  ],
+  "proof_sketches": {
+    "summary": "5 obstruction(s) detected: 4 critical, 1 high, 0 medium, 0 low",
+    "total_obstructions": 5,
+    "critical": 4,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "sketches": [
+      {
+        "obstruction_id": "O-001",
+        "obstruction_type": "H1",
+        "severity": "CRITICAL",
+        "summary": "PolicyCoverage: H1_OBSTRUCTION (compatibility: 0.00, theta: 1.5708 rad)",
+        "claims_involved": [
+          "CC7.2 policy coverage: Set A is NOT a subset of B (3 of 3 elements missing)"
+        ],
+        "constraint_chain": [
+          "PolicyCoverage: FAIL"
+        ],
+        "energy_concentration": [
+          {
+            "label": "PolicyCoverage",
+            "energy": 1.9602,
+            "theta": 1.570796,
+            "compatibility": 0.0
+          }
+        ],
+        "verdict": "H1_OBSTRUCTION",
+        "remediation": "Update policy to address the criterion topics"
+      },
+      {
+        "obstruction_id": "O-002",
+        "obstruction_type": "H1",
+        "severity": "CRITICAL",
+        "summary": "EvidenceCoverage: H1_OBSTRUCTION (compatibility: 0.10, theta: 1.4137 rad)",
+        "claims_involved": [
+          "CC7.2 evidence coverage: Set A is NOT a subset of B (2 of 3 elements missing)"
+        ],
+        "constraint_chain": [
+          "EvidenceCoverage: FAIL"
+        ],
+        "energy_concentration": [
+          {
+            "label": "EvidenceCoverage",
+            "energy": 1.653557,
+            "theta": 1.413717,
+            "compatibility": 0.1
+          }
+        ],
+        "verdict": "H1_OBSTRUCTION",
+        "remediation": "Collect the missing evidence types"
+      },
+      {
+        "obstruction_id": "O-003",
+        "obstruction_type": "H1",
+        "severity": "HIGH",
+        "summary": "AuditPeriodDate: CONSTRAINT_VIOLATION (compatibility: 0.20, theta: 1.2571 rad)",
+        "claims_involved": [
+          "CC7.2 audit period: Dates 2025-01-15 and 2026-05-17 exceed 365-day window (487 day gap, 122 days over)"
+        ],
+        "constraint_chain": [
+          "AuditPeriodDate: FAIL"
+        ],
+        "energy_concentration": [
+          {
+            "label": "AuditPeriodDate",
+            "energy": 1.355267,
+            "theta": 1.257067,
+            "compatibility": 0.1997
+          }
+        ],
+        "verdict": "CONSTRAINT_VIOLATION",
+        "remediation": "Obtain evidence dated within the audit window"
+      },
+      {
+        "obstruction_id": "O-004",
+        "obstruction_type": "H1",
+        "severity": "CRITICAL",
+        "summary": "OwnerAssignment: H1_OBSTRUCTION (compatibility: 0.00, theta: 1.5708 rad)",
+        "claims_involved": [
+          "CC7.2: No control owner assigned"
+        ],
+        "constraint_chain": [
+          "OwnerAssignment: FAIL"
+        ],
+        "energy_concentration": [
+          {
+            "label": "OwnerAssignment",
+            "energy": 1.9602,
+            "theta": 1.570796,
+            "compatibility": 0.0
+          }
+        ],
+        "verdict": "H1_OBSTRUCTION",
+        "remediation": "Assign a control owner"
+      },
+      {
+        "obstruction_id": "O-005",
+        "obstruction_type": "H1",
+        "severity": "CRITICAL",
+        "summary": "FrequencyMatch: H1_OBSTRUCTION (compatibility: 0.06, theta: 1.4810 rad)",
+        "claims_involved": [
+          "CC7.2: Frequency 'annual' is less than required 'continuous'"
+        ],
+        "constraint_chain": [
+          "FrequencyMatch: FAIL"
+        ],
+        "energy_concentration": [
+          {
+            "label": "FrequencyMatch",
+            "energy": 1.784489,
+            "theta": 1.481037,
+            "compatibility": 0.0571
+          }
+        ],
+        "verdict": "H1_OBSTRUCTION",
+        "remediation": "Increase operating frequency to meet requirements"
+      }
+    ]
+  },
+  "profile_id": "soc2_tsc_v1",
+  "profile_vertical": "compliance",
+  "mode": "mode_1_local",
+  "domain": "compliance",
+  "checked_items": [
+    {
+      "item_id": 1,
+      "claim_or_authority": "PolicyCoverage",
+      "verdict": "PASS",
+      "reason": "CC6.1 policy coverage: Set A (3 elements) is a subset of B (5 elements)",
+      "compatibility": 1.0,
+      "theta_rad": 0.0
+    },
+    {
+      "item_id": 2,
+      "claim_or_authority": "EvidenceCoverage",
+      "verdict": "PASS",
+      "reason": "CC6.1 evidence coverage: Set A (3 elements) is a subset of B (3 elements)",
+      "compatibility": 1.0,
+      "theta_rad": 0.0
+    },
+    {
+      "item_id": 3,
+      "claim_or_authority": "AuditPeriodDate",
+      "verdict": "PASS",
+      "reason": "CC6.1 audit period: Dates 2026-04-01 and 2026-05-17 are within 365 days (46 day gap)",
+      "compatibility": 0.9748,
+      "theta_rad": 0.039593
+    },
+    {
+      "item_id": 4,
+      "claim_or_authority": "OwnerAssignment",
+      "verdict": "PASS",
+      "reason": "CC6.1: Control owner assigned: Jane Smith, CISO",
+      "compatibility": 1.0,
+      "theta_rad": 0.0
+    },
+    {
+      "item_id": 5,
+      "claim_or_authority": "FrequencyMatch",
+      "verdict": "PASS",
+      "reason": "CC6.1: Frequency 'quarterly' meets requirement 'quarterly'",
+      "compatibility": 1.0,
+      "theta_rad": 0.0
+    },
+    {
+      "item_id": 6,
+      "claim_or_authority": "CriterionMapping",
+      "verdict": "PASS",
+      "reason": "Control correctly maps to CC6.1",
+      "compatibility": 1.0,
+      "theta_rad": 0.0
+    },
+    {
+      "item_id": 7,
+      "claim_or_authority": "PolicyCoverage",
+      "verdict": "FAIL",
+      "reason": "CC7.2 policy coverage: Set A is NOT a subset of B (3 of 3 elements missing)",
+      "compatibility": 0.0,
+      "theta_rad": 1.570796
+    },
+    {
+      "item_id": 8,
+      "claim_or_authority": "EvidenceCoverage",
+      "verdict": "FAIL",
+      "reason": "CC7.2 evidence coverage: Set A is NOT a subset of B (2 of 3 elements missing)",
+      "compatibility": 0.1,
+      "theta_rad": 1.413717
+    },
+    {
+      "item_id": 9,
+      "claim_or_authority": "AuditPeriodDate",
+      "verdict": "FAIL",
+      "reason": "CC7.2 audit period: Dates 2025-01-15 and 2026-05-17 exceed 365-day window (487 day gap, 122 days over)",
+      "compatibility": 0.1997,
+      "theta_rad": 1.257067
+    },
+    {
+      "item_id": 10,
+      "claim_or_authority": "OwnerAssignment",
+      "verdict": "FAIL",
+      "reason": "CC7.2: No control owner assigned",
+      "compatibility": 0.0,
+      "theta_rad": 1.570796
+    },
+    {
+      "item_id": 11,
+      "claim_or_authority": "FrequencyMatch",
+      "verdict": "FAIL",
+      "reason": "CC7.2: Frequency 'annual' is less than required 'continuous'",
+      "compatibility": 0.0571,
+      "theta_rad": 1.481037
+    },
+    {
+      "item_id": 12,
+      "claim_or_authority": "CriterionMapping",
+      "verdict": "PASS",
+      "reason": "Control correctly maps to CC7.2",
+      "compatibility": 1.0,
+      "theta_rad": 0.0
+    }
+  ],
+  "items_checked": 12,
+  "items_passed": 7,
+  "items_failed": 5,
+  "items_excluded": 0,
+  "latency_ms": 33.8,
+  "remediation_summary": {
+    "repairs_required": 5,
+    "critical_repairs": 2,
+    "high_repairs": 3,
+    "medium_repairs": 0,
+    "low_repairs": 0,
+    "total_obstructions_addressed": 5,
+    "severity_basis": "repair_action_priority"
+  },
+  "minimal_repair_set": [
+    {
+      "repair_id": "R-001",
+      "repair_type": "ADD_ASSIGNMENT",
+      "target": "OwnerAssignment",
+      "expected_change": "Assign an owner or responsible party for OwnerAssignment",
+      "affected_constraints": [
+        "OwnerAssignment"
+      ],
+      "severity": "CRITICAL",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-003",
+      "repair_type": "EXTEND_COVERAGE",
+      "target": "PolicyCoverage",
+      "expected_change": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+      "affected_constraints": [
+        "PolicyCoverage"
+      ],
+      "severity": "CRITICAL",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-002",
+      "repair_type": "ADD_EVIDENCE",
+      "target": "EvidenceCoverage",
+      "expected_change": "Attach missing evidence for EvidenceCoverage",
+      "affected_constraints": [
+        "EvidenceCoverage"
+      ],
+      "severity": "HIGH",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-004",
+      "repair_type": "INCREASE_FREQUENCY",
+      "target": "FrequencyMatch",
+      "expected_change": "Increase operating frequency for FrequencyMatch (observed: annual, expected: continuous)",
+      "affected_constraints": [
+        "FrequencyMatch"
+      ],
+      "severity": "HIGH",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-005",
+      "repair_type": "UPDATE_DATE",
+      "target": "AuditPeriodDate",
+      "expected_change": "Obtain current evidence dated within the audit window for AuditPeriodDate (observed: 2025-01-15, expected: 2026-05-17)",
+      "affected_constraints": [
+        "AuditPeriodDate"
+      ],
+      "severity": "HIGH",
+      "estimated_obstruction_reduction": 1
+    }
+  ],
+  "priority_repair_plan": [
+    {
+      "priority": 1,
+      "repair_id": "R-001",
+      "repair_type": "ADD_ASSIGNMENT",
+      "target": "OwnerAssignment",
+      "action": "Assign an owner or responsible party for OwnerAssignment",
+      "severity": "CRITICAL",
+      "submission_risk": 2,
+      "effort": 1,
+      "risk_reduction_ratio": 14.0
+    },
+    {
+      "priority": 2,
+      "repair_id": "R-002",
+      "repair_type": "ADD_EVIDENCE",
+      "target": "EvidenceCoverage",
+      "action": "Attach missing evidence for EvidenceCoverage",
+      "severity": "HIGH",
+      "submission_risk": 4,
+      "effort": 2,
+      "risk_reduction_ratio": 9.0
+    },
+    {
+      "priority": 3,
+      "repair_id": "R-005",
+      "repair_type": "UPDATE_DATE",
+      "target": "AuditPeriodDate",
+      "action": "Obtain current evidence dated within the audit window for AuditPeriodDate (observed: 2025-01-15, expected: 2026-05-17)",
+      "severity": "HIGH",
+      "submission_risk": 3,
+      "effort": 2,
+      "risk_reduction_ratio": 7.5
+    },
+    {
+      "priority": 4,
+      "repair_id": "R-003",
+      "repair_type": "EXTEND_COVERAGE",
+      "target": "PolicyCoverage",
+      "action": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+      "severity": "CRITICAL",
+      "submission_risk": 4,
+      "effort": 3,
+      "risk_reduction_ratio": 6.67
+    },
+    {
+      "priority": 5,
+      "repair_id": "R-004",
+      "repair_type": "INCREASE_FREQUENCY",
+      "target": "FrequencyMatch",
+      "action": "Increase operating frequency for FrequencyMatch (observed: annual, expected: continuous)",
+      "severity": "HIGH",
+      "submission_risk": 2,
+      "effort": 3,
+      "risk_reduction_ratio": 4.0
+    }
+  ],
+  "assurance_completion_pack": {
+    "evidence_to_collect": [
+      {
+        "repair_id": "R-002",
+        "description": "Attach missing evidence for EvidenceCoverage",
+        "target": "EvidenceCoverage"
+      },
+      {
+        "repair_id": "R-005",
+        "description": "Obtain current evidence dated within the audit window for AuditPeriodDate (observed: 2025-01-15, expected: 2026-05-17)",
+        "target": "AuditPeriodDate"
+      }
+    ],
+    "owners_to_assign": [
+      {
+        "repair_id": "R-001",
+        "description": "Assign an owner or responsible party for OwnerAssignment",
+        "target": "OwnerAssignment"
+      }
+    ],
+    "policy_updates_required": [
+      {
+        "repair_id": "R-003",
+        "description": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+        "target": "PolicyCoverage"
+      }
+    ],
+    "control_mappings_to_fix": [],
+    "recheck_required": true,
+    "recheck_command": "python -m sigma.satya.verify --profile soc2_tsc_v1 --recheck pending",
+    "expected_post_fix_result": "PASS_OR_REVIEW_REQUIRED",
+    "closure_receipt_required": true,
+    "residual_risk_notes": []
+  },
+  "repair_strategy": "deterministic_obstruction_core_hitting_set",
+  "repair_set_hash": "0ff27ba570be83d3",
+  "repair_minimality_claim": "minimal_over_detected_obstruction_cores",
+  "closure_receipt": {
+    "closure_receipt_required": true,
+    "finding_receipt_id": "SATYA-20260518-4C2388CC",
+    "repair_set_hash_to_verify": "0ff27ba570be83d3",
+    "expected_closure_type": "compliance_closure"
+  },
+  "svr_version": "1.0",
+  "receipt_id": "SATYA-20260518-4C2388CC",
+  "receipt_type": "compliance",
+  "receipt_status": "evaluation",
+  "input_hash": "4c2388cc40f2680b",
+  "source_bundle_hash": "",
+  "filing_safety_status": "UNSAFE_TO_SUBMIT",
+  "safe_to_rely": false,
+  "reason": "h1_source_conflict",
+  "timestamp_utc": "2026-05-18T01:58:21.705743+00:00",
+  "engine_version": "satya/0.1.0 sigma/1.0.0",
+  "policy_profile": null,
+  "verify_url": "https://invariant.pro/verify/SATYA-20260518-4C2388CC",
+  "constraint_layer_version": "1.0.0",
+  "primitive_manifest_hash": "25a6dd9398d54d37",
+  "public_key": "85a46274cd49c2a8f2ac0baa807b4366ad41049b003d7b61429b415cd8234603",
+  "signature": "3ec6bc968a274ed2a2bd5728bdd7c31f4333da0a8191f04ed55479f4d56bbf323339fef164cfb7f08b4e35aa82dd9d46cd411cf85f0de34c648eaa512c3c2c01",
+  "signature_status": "VALID"
+}

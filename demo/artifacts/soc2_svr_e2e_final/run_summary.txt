@@ -1,0 +1,17 @@
+SATYA SOC 2 End-to-End Verification Run
+Date: 2026-05-18T01:58:21.705743+00:00
+Receipt ID: SATYA-20260518-4C2388CC
+Profile: soc2_tsc_v1 (vertical: compliance)
+Constraint Layer: 1.0.0
+Manifest Hash: 25a6dd9398d54d37
+Purity Gate: 0.99
+
+Constraints: 12 total, 7 pass, 5 fail
+Purity Gate violations: 0
+Obstructed edges: 5
+Proof sketches: 5 obstruction(s) detected: 4 critical, 1 high, 0 medium, 0 low
+Total Dirichlet energy: 173.963320
+
+Signature: VALID
+Receipt: VALID
+Total time: 33.8 ms

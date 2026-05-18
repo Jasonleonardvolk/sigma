@@ -1,0 +1,845 @@
+SATYA VERIFICATION RECEIPT (SVR) SPECIFICATION
+Version 1.0
+May 17, 2026 | Invariant Research
+Patent Pending
+
+========================================================================
+1. OVERVIEW
+========================================================================
+
+A SATYA Verification Receipt (SVR) is a cryptographically signed,
+point-in-time attestation that a deterministic verification engine
+audited a specific input against specific sources and produced a
+specific result.
+
+An SVR is immutable once signed. It is never revoked, retracted, or
+invalidated. If the underlying semantic model changes, a new SVR is
+issued that supersedes the prior one via a provenance chain.
+
+The SVR format is domain-agnostic. The same envelope carries legal
+citation audits, SOC 2 control evidence audits, RAG grounding audits,
+clinical source support audits, and all other SATYA verticals. Domain
+semantics are encoded in the checked_items array and the mode field.
+
+========================================================================
+2. RECEIPT TYPES
+========================================================================
+
+Each SVR carries a receipt_type field that identifies the domain adapter:
+
+  legal           Legal Citation Audit
+  soc2            SOC 2 Control Evidence Audit
+  compliance      Compliance Control Audit
+  clinical        Clinical Source Support Audit
+  financial       Financial Disclosure Support Audit
+  defense         Defense Source-Chain Audit
+  rag             Enterprise RAG Grounding Audit
+  agent           Agent Action Verification
+  faithfulness    Source Fidelity Verification
+
+New receipt types may be added. Consumers MUST treat unrecognized
+receipt_type values as opaque strings and MUST NOT reject a receipt
+solely because the type is unfamiliar.
+
+========================================================================
+3. CANONICAL SCHEMA
+========================================================================
+
+An SVR is a JSON object with the following top-level structure.
+Fields marked [REQUIRED] must be present. Fields marked [OPTIONAL]
+may be omitted; consumers MUST tolerate their absence.
+
+3.1 ENVELOPE
+------------------------------------------------------------------------
+
+  svr_version             [REQUIRED] string
+      Schema version. "1.0" for this specification.
+
+  receipt_id              [REQUIRED] string
+      Globally unique identifier.
+      Format: SATYA-YYYYMMDD-HASH8
+      where HASH8 is the first 8 hex characters of SHA-256(input).
+      Example: "SATYA-20260517-A3743D85"
+
+  receipt_type            [REQUIRED] string
+      Domain adapter label from the type registry (Section 2).
+
+  mode                    [REQUIRED] string
+      Engine mode used for this audit. Domain-specific.
+      Legal: "mode_2_retrieval", "mode_1_identity_only"
+      SOC 2: "soc2_evidence_audit"
+      Faithfulness: "faithfulness"
+
+  receipt_status          [REQUIRED] string
+      Monetization tier. One of:
+        "evaluation"    Free tier. PDF receipts carry EVALUATION
+                        watermark. receipt_status appears in JSON.
+        "production"    Paid tier. No watermark. Full commercial use.
+
+3.2 INPUT PROVENANCE
+------------------------------------------------------------------------
+
+  input_hash              [REQUIRED] string
+      SHA-256 of the raw input text, truncated to 16 hex characters.
+      Computed over the exact byte sequence submitted to the engine.
+
+  input_byte_count        [OPTIONAL] integer
+      Length in bytes of the raw input.
+
+  source_bundle_hash      [REQUIRED] string
+      SHA-256 of the concatenation of all source documents used in
+      the audit, sorted lexicographically by source identifier,
+      truncated to 16 hex characters.
+      If no external sources were used, this field is the empty
+      string "".
+
+  source_hashes           [OPTIONAL] array of objects
+      Per-source hash entries. Each entry:
+        source_id         string  Unique source identifier
+        hash              string  SHA-256 of source content (16 hex)
+        provider          string  Source provider name
+        url               string  Source URL (if applicable)
+
+3.3 GRAPH PROVENANCE
+------------------------------------------------------------------------
+
+  graph_hash              [OPTIONAL] string
+      SHA-256 of the serialized sheaf complex at audit time,
+      truncated to 16 hex characters. Covers all cells, restriction
+      maps, and coboundary structure. Enables downstream consumers
+      to verify the audit was run against a specific graph state.
+
+  decomposition_hash      [OPTIONAL] string
+      SHA-256 of the cohomology decomposition output (H^0, H^1,
+      cokernel dimensions and generators), truncated to 16 hex
+      characters. Two receipts with the same decomposition_hash
+      produced identical mathematical results.
+
+3.4 SHEAF METRICS
+------------------------------------------------------------------------
+
+  sheaf_metrics           [OPTIONAL] object
+      Raw cohomological measurements from the SIGMA engine.
+
+      h1_dimension        integer   dim(H^1) of the sheaf complex.
+                                    >0 indicates structural contradictions.
+      obstruction_count   integer   Total H^1 + cokernel obstructions.
+      cokernel_dimension  integer   dim(coker) of the global section map.
+                                    >0 indicates unsupported claims.
+      grounding_ratio     float     Fraction of claims with source support.
+                                    Range [0.0, 1.0].
+      evidence_edges      integer   Number of edges carrying source evidence.
+      claims_extracted    integer   Total claims extracted from input.
+      cells_total         integer   Total cells in the sheaf complex.
+      restriction_maps    integer   Total restriction maps evaluated.
+
+3.5 VERDICT
+------------------------------------------------------------------------
+
+  verdict                 [REQUIRED] string
+      Machine-readable overall verdict. One of:
+        "verified"                 All checks passed.
+        "citation_audit_high_risk" Identity mismatches or contradictions.
+        "review_required"          Partial or incomplete audit.
+        "unsafe_to_submit"         Hard failures detected.
+        "insufficient_data"        Not enough source material.
+
+  safe_to_rely            [REQUIRED] boolean or null
+      Whether the input is safe to rely on for its stated purpose.
+      null indicates the engine could not make a determination.
+
+  filing_safety_status    [REQUIRED] string
+      One of: "SAFE_TO_SUBMIT", "UNSAFE_TO_SUBMIT", "REVIEW_REQUIRED"
+
+  reason                  [REQUIRED] string
+      Plain English explanation of the verdict.
+
+3.6 SUMMARY COUNTS
+------------------------------------------------------------------------
+
+  items_checked           [REQUIRED] integer
+  items_passed            [REQUIRED] integer
+  items_failed            [REQUIRED] integer
+  items_excluded          [REQUIRED] integer
+
+  The invariant items_checked = items_passed + items_failed +
+  items_excluded MUST hold. Consumers MAY validate this.
+
+3.7 CHECKED ITEMS
+------------------------------------------------------------------------
+
+  checked_items           [REQUIRED] array of objects
+      Per-item audit results. Each entry:
+
+      item_id             [REQUIRED] integer
+          Sequential identifier starting at 1.
+
+      claim_or_authority  [REQUIRED] string
+          The text, citation, or control that was checked.
+
+      verdict             [REQUIRED] string
+          Per-item result. Domain-specific values include:
+            SUPPORTED
+            UNSUPPORTED
+            CONTRADICTED
+            CITATION_VERIFIED
+            CITATION_MISMATCH
+            SOURCE_NOT_FOUND
+            INSUFFICIENT_EVIDENCE
+            OUT_OF_SCOPE
+            NEEDS_HUMAN_REVIEW
+            citation_identity_mismatch
+            supports_candidate
+            partial
+            low_lexical_support
+            support_not_tested
+            contradicted
+            quote_mismatch
+            quote_not_found
+            quote_pinpoint_mismatch
+            insufficient_source_text
+
+      reason              [REQUIRED] string
+          Plain English explanation.
+
+      source_checked      [OPTIONAL] string
+          Source used for verification.
+
+      source_url          [OPTIONAL] string
+          URL of the source document.
+
+      missing_evidence    [OPTIONAL] array of strings
+          What would resolve the gap.
+
+      remediation         [OPTIONAL] string
+          Recommended corrective action.
+
+      detail              [OPTIONAL] object
+          Domain-specific additional data. Opaque to the envelope.
+
+3.8 EXCLUSIONS
+------------------------------------------------------------------------
+
+  exclusions              [OPTIONAL] array of strings
+      Items explicitly excluded from the audit scope, with reasons.
+
+3.9 SOURCE COVERAGE
+------------------------------------------------------------------------
+
+  sources_searched        [OPTIONAL] integer
+  sources_relevant        [OPTIONAL] integer
+  source_providers        [OPTIONAL] array of strings
+
+3.10 ENGINE PROVENANCE
+------------------------------------------------------------------------
+
+  timestamp_utc           [REQUIRED] string
+      ISO 8601 timestamp with timezone. Example:
+      "2026-05-17T14:32:00.000000+00:00"
+
+  engine_version          [REQUIRED] string
+      SATYA engine version. Format: "satya/<version> sigma/<version>"
+      Example: "satya/0.2.0 sigma/1.0.0"
+
+  policy_profile          [OPTIONAL] string
+      Domain policy applied during audit (e.g., "colorado_ai_act",
+      "eu_ai_act_article_15").
+
+  verification_modules    [OPTIONAL] array of strings
+      List of verification modules active during this audit.
+      Example: ["identity_resolution", "lexical_support",
+                "quote_match", "pinpoint_audit"]
+
+  replay_seed             [OPTIONAL] string
+      Deterministic replay seed. If provided, re-running the engine
+      with this seed against the same input_hash and
+      source_bundle_hash MUST produce the same decomposition_hash
+      and the same checked_items verdicts. This is the
+      deterministic replay guarantee.
+
+3.11 DRIFT STATE
+------------------------------------------------------------------------
+
+  drift                   [OPTIONAL] object
+      Incremental consistency state at audit time.
+
+      drift_value         float     Correctness drift metric. 0.0 means
+                                    zero drift (perfect incremental
+                                    consistency).
+      dirty_cells         integer   Number of cells with pending
+                                    recomputation at audit time. 0 means
+                                    the complex was fully converged.
+      last_edit_latency_us float    Microseconds for the most recent
+                                    incremental edit.
+
+3.12 SUPERSESSION CHAIN
+------------------------------------------------------------------------
+
+  supersedes              [OPTIONAL] string
+      receipt_id of the prior receipt that this receipt supersedes.
+      Absent on first-issue receipts.
+
+  supersession_reason     [OPTIONAL] string
+      Why the prior receipt was superseded. One of:
+        "restriction_map_updated"
+        "source_document_updated"
+        "policy_profile_changed"
+        "engine_version_upgraded"
+        "manual_reaudit"
+        "input_amended"
+
+  changed_edges           [OPTIONAL] array of objects
+      Edges whose restriction maps changed between the superseded
+      receipt and this one. Each entry:
+        edge_id           string
+        old_restriction_hash  string  SHA-256 of prior restriction map
+        new_restriction_hash  string  SHA-256 of new restriction map
+        description       string  Human-readable change summary
+
+  superseded_by           [OPTIONAL] string
+      receipt_id of the receipt that supersedes this one.
+      Populated only by the supersession query API, never at
+      issuance time (the issuer does not know the future).
+
+3.13 CRYPTOGRAPHIC SIGNATURE
+------------------------------------------------------------------------
+
+  public_key              [REQUIRED] string
+      Ed25519 public key in hex encoding.
+      "unsigned" if the receipt was not signed.
+
+  signature               [REQUIRED] string
+      Ed25519 signature in hex encoding over the canonical
+      serialization of the receipt (see Section 4).
+      Empty string "" if unsigned.
+
+  signature_status        [REQUIRED] string
+      One of: "VALID", "UNSIGNED"
+      Consumers MUST verify the signature against the canonical
+      serialization (Section 4) using the public_key before
+      trusting signature_status.
+
+3.14 VERIFICATION
+------------------------------------------------------------------------
+
+  verify_url              [OPTIONAL] string
+      URL for independent receipt verification.
+      Example: "https://invariant.pro/verify/SATYA-20260517-A3743D85"
+
+3.15 PERFORMANCE
+------------------------------------------------------------------------
+
+  latency_ms              [OPTIONAL] float
+      Total wall-clock milliseconds for the audit pipeline.
+
+  retrieval_ms            [OPTIONAL] float
+      Wall-clock milliseconds spent on source retrieval.
+
+  compute_ms              [OPTIONAL] float
+      Wall-clock milliseconds spent on sheaf cohomology computation.
+
+3.16 CONSTRAINT LAYER
+------------------------------------------------------------------------
+
+  constraint_layer_version  [OPTIONAL] string
+      Version of the Algebraic Compatibility Layer active at
+      audit time. Format: semantic version (e.g., "1.0.0").
+
+  primitive_manifest_hash   [OPTIONAL] string
+      SHA-256 hash of the primitive manifest (truncated to 16 hex
+      characters). Proves which set of constraint primitives was
+      active when the receipt was issued. Any change to the
+      primitive registry (adding, removing, or modifying a
+      primitive) changes this hash.
+
+  compiled_restriction_hash [OPTIONAL] string
+      SHA-256 hash of all compiled restriction maps produced by
+      the ConstraintCompiler for this audit (truncated to 16 hex
+      characters). Enables downstream verification that the same
+      constraint results produced the same maps.
+
+  purity_gate_rho_max       [OPTIONAL] float
+      Maximum singular value permitted by the Purity Gate.
+      Default: 0.99. All restriction maps produced by the
+      constraint compiler are certified to satisfy
+      sigma_max(rho) <= purity_gate_rho_max.
+
+  constraint_results        [OPTIONAL] array of objects
+      Per-constraint audit results. Each entry:
+        constraint_name   string   Primitive name (e.g., "DateBefore")
+        verdict           string   PASS / FAIL / INSUFFICIENT_EVIDENCE /
+                                   AMBIGUOUS_WITH_BOUNDS
+        compatibility     float    [0.0, 1.0] agreement degree
+        theta_rad         float    Rotation angle encoding compatibility
+        explanation       string   Human-readable receipt fragment
+        purity_gate_certified  boolean  Map pair passed Purity Gate
+
+3.17 REMEDIATION
+------------------------------------------------------------------------
+
+  remediation_summary         [OPTIONAL] object
+      Summary statistics for the minimal repair set.
+        repairs_required          integer  Total repairs needed
+        critical_repairs          integer  Count at CRITICAL severity
+        high_repairs              integer  Count at HIGH severity
+        medium_repairs            integer  Count at MEDIUM severity
+        low_repairs               integer  Count at LOW severity
+        total_obstructions_addressed  integer  Obstructions covered
+
+  minimal_repair_set          [OPTIONAL] array of objects
+      Deterministic minimal repair actions. Each entry:
+        repair_id         string   Unique identifier (e.g., "R-001")
+        repair_type       string   Action category (ADD_EVIDENCE,
+                                   CORRECT_VALUE, ADD_ASSIGNMENT,
+                                   INCREASE_FREQUENCY, RESOLVE_CONTRADICTION,
+                                   EXTEND_COVERAGE, UPDATE_DATE,
+                                   REMOVE_EXCEPTION, ADD_MAPPING,
+                                   REORDER_CONTENT, ADD_SUPPORT,
+                                   RECONCILE_AMOUNTS)
+        target            string   What needs to change
+        expected_change   string   Human-readable description
+        affected_constraints  array of string  Constraint names resolved
+        severity          string   CRITICAL / HIGH / MEDIUM / LOW
+        estimated_obstruction_reduction  integer  Expected resolved count
+
+  repair_strategy             [OPTIONAL] string
+      Algorithm used. Default:
+      "deterministic_obstruction_core_hitting_set"
+
+  repair_set_hash             [OPTIONAL] string
+      SHA-256 hash of the canonical repair set (truncated to 16 hex
+      characters). Enables replay verification that the same
+      failures produce the same repair set.
+
+  repair_minimality_claim     [OPTIONAL] string
+      Scope of the minimality guarantee. Default:
+      "minimal_over_detected_obstruction_cores"
+      This claim does NOT assert global minimality. It asserts
+      that every detected failure is covered by exactly one repair
+      and no repair can be removed without leaving a failure
+      uncovered.
+
+========================================================================
+4. CANONICAL SERIALIZATION
+========================================================================
+
+The canonical serialization defines the exact byte sequence over which
+the Ed25519 signature is computed. This ensures that any party holding
+the receipt can independently verify the signature.
+
+4.1 PROCEDURE
+------------------------------------------------------------------------
+
+1. Start with the receipt JSON object.
+
+2. Remove the following fields (they are not covered by the signature):
+     signature
+     signature_status
+     superseded_by
+     verify_url
+     receipt_status
+
+3. Sort all object keys lexicographically at every nesting level.
+
+4. Serialize to JSON with no whitespace (no spaces, no newlines,
+   no indentation). Use the following rules:
+     - Strings: UTF-8, with characters U+0000 through U+001F escaped
+       as \uXXXX. Forward slashes are NOT escaped.
+     - Numbers: No leading zeros. No trailing zeros after decimal point
+       except when the number is an integer (render as "0.0" not "0").
+       Use "e" notation only for numbers whose absolute value is
+       >= 1e15 or < 1e-6.
+     - Booleans: "true" or "false" (lowercase).
+     - Null: "null".
+     - Arrays: elements in original order (not sorted).
+
+5. Encode the resulting string as UTF-8 bytes.
+
+6. The signature is Ed25519(private_key, utf8_bytes).
+
+4.2 EXAMPLE
+------------------------------------------------------------------------
+
+Given receipt fields (abbreviated):
+  receipt_id: "SATYA-20260517-A3743D85"
+  input_hash: "a3743d85a972e89a"
+  verdict: "verified"
+
+The canonical serialization (with keys sorted, signature fields
+removed, no whitespace) would be:
+
+  {"input_hash":"a3743d85a972e89a","receipt_id":"SATYA-20260517-A3743D85","verdict":"verified",...}
+
+4.3 VERIFICATION PROCEDURE
+------------------------------------------------------------------------
+
+To verify a receipt:
+
+1. Parse the JSON.
+2. Extract the public_key and signature fields.
+3. Remove signature, signature_status, superseded_by, verify_url,
+   and receipt_status from the object.
+4. Produce the canonical serialization per Section 4.1.
+5. Verify: Ed25519_verify(public_key, canonical_bytes, signature).
+6. If verification succeeds, the receipt is authentic and unmodified.
+7. If verification fails, the receipt has been tampered with or the
+   public_key does not match the issuer.
+
+========================================================================
+5. REPLAY SEMANTICS
+========================================================================
+
+Deterministic replay is the property that the same input, the same
+sources, the same engine version, and the same replay_seed produce
+the same receipt (excluding timestamp and receipt_id).
+
+5.1 REPLAY GUARANTEE
+------------------------------------------------------------------------
+
+If a receipt contains a replay_seed, the following invariant holds:
+
+  Given:
+    input  = bytes such that SHA-256(input)[:16] == input_hash
+    sources = bytes such that SHA-256(sorted_concat)[:16] == source_bundle_hash
+    engine = version matching engine_version
+    seed   = replay_seed
+
+  Then:
+    replay_result = satya.audit(input, sources, seed=seed)
+    assert replay_result.decomposition_hash == decomposition_hash
+    assert replay_result.sheaf_metrics == sheaf_metrics
+    assert replay_result.checked_items[i].verdict == checked_items[i].verdict
+        for all i
+
+  The following fields are NOT covered by the replay guarantee:
+    receipt_id          (generated fresh each run)
+    timestamp_utc       (current time)
+    latency_ms          (hardware-dependent)
+    retrieval_ms        (network-dependent)
+    compute_ms          (hardware-dependent)
+    verify_url          (derived from receipt_id)
+
+5.2 REPLAY FAILURE
+------------------------------------------------------------------------
+
+If replay produces different results, exactly one of the following
+is true:
+
+  a) The input bytes do not match input_hash (input was altered).
+  b) The source bytes do not match source_bundle_hash (sources changed).
+  c) The engine version does not match engine_version (engine bug or
+     version mismatch).
+  d) The replay_seed was not used (implementation error).
+
+Each of these is independently verifiable by comparing hashes.
+
+5.3 REPLAY API
+------------------------------------------------------------------------
+
+  POST /api/v1/replay
+  Content-Type: application/json
+
+  {
+    "receipt_id": "SATYA-20260517-A3743D85",
+    "input": "<base64-encoded input bytes>",
+    "sources": [
+      {"source_id": "src_001", "content": "<base64-encoded>"},
+      ...
+    ]
+  }
+
+  Response 200:
+  {
+    "replay_match": true,
+    "decomposition_match": true,
+    "verdict_match": true,
+    "new_receipt": { ... }
+  }
+
+  Response 409 (mismatch):
+  {
+    "replay_match": false,
+    "mismatch_reason": "source_bundle_hash_mismatch",
+    "expected_hash": "...",
+    "actual_hash": "..."
+  }
+
+========================================================================
+6. VERIFICATION API
+========================================================================
+
+6.1 VERIFY RECEIPT SIGNATURE
+------------------------------------------------------------------------
+
+  POST /api/v1/verify
+  Content-Type: application/json
+
+  {
+    "receipt": { <full SVR JSON> }
+  }
+
+  Response 200:
+  {
+    "signature_valid": true,
+    "public_key_recognized": true,
+    "issuer": "Invariant Research"
+  }
+
+  Response 200 (invalid):
+  {
+    "signature_valid": false,
+    "reason": "signature_mismatch"
+  }
+
+6.2 CHECK SUPERSESSION
+------------------------------------------------------------------------
+
+  GET /api/v1/receipts/{receipt_id}/supersession
+
+  Response 200 (not superseded):
+  {
+    "receipt_id": "SATYA-20260517-A3743D85",
+    "superseded": false,
+    "latest": "SATYA-20260517-A3743D85"
+  }
+
+  Response 200 (superseded):
+  {
+    "receipt_id": "SATYA-20260517-A3743D85",
+    "superseded": true,
+    "latest": "SATYA-20260520-B1F92C04",
+    "chain": [
+      "SATYA-20260517-A3743D85",
+      "SATYA-20260519-C8D41E22",
+      "SATYA-20260520-B1F92C04"
+    ],
+    "supersession_reasons": [
+      "restriction_map_updated",
+      "source_document_updated"
+    ]
+  }
+
+6.3 RECEIPT CHAIN
+------------------------------------------------------------------------
+
+  GET /api/v1/receipts/{receipt_id}/chain
+
+  Returns the full supersession chain for any receipt in the chain,
+  from the original issuance to the most recent audit.
+
+  Response 200:
+  {
+    "chain": [
+      {
+        "receipt_id": "SATYA-20260517-A3743D85",
+        "timestamp_utc": "2026-05-17T14:32:00.000000+00:00",
+        "verdict": "verified",
+        "supersession_reason": null
+      },
+      {
+        "receipt_id": "SATYA-20260519-C8D41E22",
+        "timestamp_utc": "2026-05-19T09:15:30.000000+00:00",
+        "verdict": "review_required",
+        "supersession_reason": "restriction_map_updated"
+      }
+    ]
+  }
+
+========================================================================
+7. RESTRICTION MAP UPDATE API
+========================================================================
+
+When a restriction map changes on an existing edge, the system
+must decide how to handle prior receipts that covered that edge.
+Three modes are defined:
+
+7.1 SILENT UPDATE (mode: "silent")
+------------------------------------------------------------------------
+
+  The restriction map changes. Dirty-cell propagation fires. H^1 is
+  recomputed. No receipt is issued. The system updates internal state.
+
+  Use case: Continuous monitoring pipelines that issue receipts on
+  demand, not on every change.
+
+7.2 AUTO-REAUDIT (mode: "auto_reaudit")
+------------------------------------------------------------------------
+
+  The restriction map change triggers automatic re-audit of all
+  documents previously audited through the affected edge. Each new
+  receipt carries the supersedes field linking to the prior receipt.
+
+  Use case: Compliance-critical deployments where every semantic
+  change must produce an auditable paper trail.
+
+7.3 FLAG FOR REVIEW (mode: "flag_for_review")
+------------------------------------------------------------------------
+
+  The restriction map change is logged. Affected prior receipts are
+  tagged in a review queue. No new receipt is issued until a human
+  or upstream system requests it.
+
+  Use case: Legal workflows where a human must decide whether the
+  semantic shift warrants a new audit.
+
+7.4 API
+------------------------------------------------------------------------
+
+  POST /api/v1/restriction-maps/{edge_id}
+  Content-Type: application/json
+
+  {
+    "new_map": [[1, 0], [0, -1]],
+    "mode": "auto_reaudit",
+    "reason": "vendor_status_changed"
+  }
+
+  Response 200 (auto_reaudit):
+  {
+    "edge_id": "e-2741",
+    "old_restriction_hash": "a3f8...",
+    "new_restriction_hash": "c91b...",
+    "receipts_superseded": 3,
+    "new_receipt_ids": [
+      "SATYA-20260517-D4E21F88",
+      "SATYA-20260517-D4E21F89",
+      "SATYA-20260517-D4E21F8A"
+    ]
+  }
+
+========================================================================
+8. RECEIPT LEDGER
+========================================================================
+
+The receipt ledger is a local append-only log of all receipts issued
+by a SATYA instance. It serves as the authoritative record for
+supersession queries.
+
+8.1 LEDGER FORMAT
+------------------------------------------------------------------------
+
+  The ledger is a JSON Lines file (one JSON object per line).
+  Each line contains:
+
+    receipt_id            string
+    timestamp_utc         string
+    input_hash            string
+    verdict               string
+    supersedes            string or null
+    receipt_status        string
+
+  The ledger file is located at:
+    <SATYA_DATA_DIR>/receipt_ledger.jsonl
+
+8.2 LEDGER INTEGRITY
+------------------------------------------------------------------------
+
+  The ledger is append-only. Lines are never modified or deleted.
+  Consumers MAY compute a running SHA-256 hash chain over ledger
+  entries for tamper detection.
+
+========================================================================
+9. DOMAIN-SPECIFIC EXTENSIONS
+========================================================================
+
+Domain adapters may add additional top-level fields to the SVR
+beyond those defined in Section 3. These fields MUST be prefixed
+with the domain name to avoid collisions.
+
+9.1 LEGAL DOMAIN
+------------------------------------------------------------------------
+
+  legal_audit_stage       string  "identity", "support", or "both"
+  legal_stage1_label      string  Stage 1 verdict label
+  legal_stage2_label      string  Stage 2 verdict label
+  authorities_detected    integer Total citations found
+  authorities_resolved    integer Citations successfully resolved
+  authorities_unresolved  integer Citations not found
+  citation_mismatches     integer Citations resolving to wrong case
+  citation_results        array   Full per-citation audit results
+  support_audit           object  Stage 2 support analysis summary
+  conflict_details        array   Sheaf-detected contradictions
+  retrieval_triggers      array   Claims that triggered source retrieval
+
+9.2 SOC 2 DOMAIN
+------------------------------------------------------------------------
+
+  soc2_framework          string  "AICPA TSC 2017" or later
+  soc2_scope              string  Trust service category audited
+  criterion_results       array   Per-criterion audit results
+
+9.3 RAG DOMAIN
+------------------------------------------------------------------------
+
+  rag_model_id            string  LLM model identifier
+  rag_prompt_hash         string  SHA-256 of the prompt
+  rag_response_hash       string  SHA-256 of the LLM response
+  rag_source_count        integer Number of retrieved sources
+
+========================================================================
+10. CONTENT-TYPE AND FILE CONVENTIONS
+========================================================================
+
+  MIME type:              application/vnd.satya.receipt+json
+  File extension:         .svr.json
+  Compressed:             .svr.json.gz (gzip)
+
+  PDF receipts:           .satya-receipt.pdf
+  PDF receipts carry a visual rendering of the SVR with optional
+  EVALUATION watermark per receipt_status.
+
+========================================================================
+11. VERSIONING
+========================================================================
+
+  SVR versions follow semantic versioning: MAJOR.MINOR
+
+  MAJOR bump: Breaking changes to required fields, canonical
+  serialization, or signature scheme.
+
+  MINOR bump: New optional fields, new receipt types, new
+  verdict values.
+
+  Consumers MUST check svr_version and MUST reject receipts with
+  an unrecognized MAJOR version. Consumers SHOULD tolerate
+  unrecognized MINOR versions by ignoring unknown fields.
+
+========================================================================
+12. SECURITY CONSIDERATIONS
+========================================================================
+
+  - The Ed25519 private key MUST be stored in a hardware security
+    module (HSM) or equivalent secure enclave in production
+    deployments.
+
+  - The canonical serialization procedure (Section 4) MUST be
+    implemented exactly. Any deviation produces a different signature
+    and breaks verification.
+
+  - Receipt PDFs are a rendering convenience. The JSON SVR is the
+    authoritative artifact. PDF receipts SHOULD embed the SVR JSON
+    in PDF metadata for machine extraction.
+
+  - The replay_seed MUST NOT be derived from or correlated with
+    the private key.
+
+  - Consumers SHOULD pin to a known public key rather than
+    accepting any key presented in the receipt. Public key
+    distribution is out of scope for this specification.
+
+========================================================================
+13. THE FIVE QUESTIONS
+========================================================================
+
+Every SVR answers five questions:
+
+  1. What was checked?        checked_items[].claim_or_authority
+  2. What failed?             checked_items where verdict indicates failure
+  3. What was excluded?       exclusions[] and items_excluded count
+  4. Is it safe to rely on?   safe_to_rely boolean
+  5. Can the receipt be       signature_status, verify_url,
+     independently verified?  replay_seed, canonical serialization
+
+========================================================================
+END OF SPECIFICATION
+========================================================================

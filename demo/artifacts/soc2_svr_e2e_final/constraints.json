@@ -1,0 +1,134 @@
+{
+  "profile_id": "soc2_tsc_v1",
+  "vertical": "compliance",
+  "constraint_layer_version": "1.0.0",
+  "primitive_manifest_hash": "25a6dd9398d54d37",
+  "total_constraints": 12,
+  "passed": 7,
+  "failed": 5,
+  "insufficient": 0,
+  "ambiguous": 0,
+  "all_certified": true,
+  "results": [
+    {
+      "constraint": "PolicyCoverage",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1 policy coverage: Set A (3 elements) is a subset of B (5 elements)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "EvidenceCoverage",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1 evidence coverage: Set A (3 elements) is a subset of B (3 elements)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "AuditPeriodDate",
+      "verdict": "PASS",
+      "compatibility": 0.9748,
+      "theta_rad": 0.039593,
+      "explanation": "CC6.1 audit period: Dates 2026-04-01 and 2026-05-17 are within 365 days (46 day gap)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "OwnerAssignment",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1: Control owner assigned: Jane Smith, CISO",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "FrequencyMatch",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "CC6.1: Frequency 'quarterly' meets requirement 'quarterly'",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "CriterionMapping",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "Control correctly maps to CC6.1",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "PolicyCoverage",
+      "verdict": "FAIL",
+      "compatibility": 0.0,
+      "theta_rad": 1.570796,
+      "explanation": "CC7.2 policy coverage: Set A is NOT a subset of B (3 of 3 elements missing)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "EvidenceCoverage",
+      "verdict": "FAIL",
+      "compatibility": 0.1,
+      "theta_rad": 1.413717,
+      "explanation": "CC7.2 evidence coverage: Set A is NOT a subset of B (2 of 3 elements missing)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "AuditPeriodDate",
+      "verdict": "FAIL",
+      "compatibility": 0.1997,
+      "theta_rad": 1.257067,
+      "explanation": "CC7.2 audit period: Dates 2025-01-15 and 2026-05-17 exceed 365-day window (487 day gap, 122 days over)",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "OwnerAssignment",
+      "verdict": "FAIL",
+      "compatibility": 0.0,
+      "theta_rad": 1.570796,
+      "explanation": "CC7.2: No control owner assigned",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "FrequencyMatch",
+      "verdict": "FAIL",
+      "compatibility": 0.0571,
+      "theta_rad": 1.481037,
+      "explanation": "CC7.2: Frequency 'annual' is less than required 'continuous'",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "constraint": "CriterionMapping",
+      "verdict": "PASS",
+      "compatibility": 1.0,
+      "theta_rad": 0.0,
+      "explanation": "Control correctly maps to CC7.2",
+      "purity_gate_certified": true,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    }
+  ]
+}

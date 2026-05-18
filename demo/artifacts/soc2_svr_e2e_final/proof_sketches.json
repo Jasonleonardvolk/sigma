@@ -1,0 +1,120 @@
+{
+  "summary": "5 obstruction(s) detected: 4 critical, 1 high, 0 medium, 0 low",
+  "total_obstructions": 5,
+  "critical": 4,
+  "high": 1,
+  "medium": 0,
+  "low": 0,
+  "sketches": [
+    {
+      "obstruction_id": "O-001",
+      "obstruction_type": "H1",
+      "severity": "CRITICAL",
+      "summary": "PolicyCoverage: H1_OBSTRUCTION (compatibility: 0.00, theta: 1.5708 rad)",
+      "claims_involved": [
+        "CC7.2 policy coverage: Set A is NOT a subset of B (3 of 3 elements missing)"
+      ],
+      "constraint_chain": [
+        "PolicyCoverage: FAIL"
+      ],
+      "energy_concentration": [
+        {
+          "label": "PolicyCoverage",
+          "energy": 1.9602,
+          "theta": 1.570796,
+          "compatibility": 0.0
+        }
+      ],
+      "verdict": "H1_OBSTRUCTION",
+      "remediation": "Update policy to address the criterion topics"
+    },
+    {
+      "obstruction_id": "O-002",
+      "obstruction_type": "H1",
+      "severity": "CRITICAL",
+      "summary": "EvidenceCoverage: H1_OBSTRUCTION (compatibility: 0.10, theta: 1.4137 rad)",
+      "claims_involved": [
+        "CC7.2 evidence coverage: Set A is NOT a subset of B (2 of 3 elements missing)"
+      ],
+      "constraint_chain": [
+        "EvidenceCoverage: FAIL"
+      ],
+      "energy_concentration": [
+        {
+          "label": "EvidenceCoverage",
+          "energy": 1.653557,
+          "theta": 1.413717,
+          "compatibility": 0.1
+        }
+      ],
+      "verdict": "H1_OBSTRUCTION",
+      "remediation": "Collect the missing evidence types"
+    },
+    {
+      "obstruction_id": "O-003",
+      "obstruction_type": "H1",
+      "severity": "HIGH",
+      "summary": "AuditPeriodDate: CONSTRAINT_VIOLATION (compatibility: 0.20, theta: 1.2571 rad)",
+      "claims_involved": [
+        "CC7.2 audit period: Dates 2025-01-15 and 2026-05-17 exceed 365-day window (487 day gap, 122 days over)"
+      ],
+      "constraint_chain": [
+        "AuditPeriodDate: FAIL"
+      ],
+      "energy_concentration": [
+        {
+          "label": "AuditPeriodDate",
+          "energy": 1.355267,
+          "theta": 1.257067,
+          "compatibility": 0.1997
+        }
+      ],
+      "verdict": "CONSTRAINT_VIOLATION",
+      "remediation": "Obtain evidence dated within the audit window"
+    },
+    {
+      "obstruction_id": "O-004",
+      "obstruction_type": "H1",
+      "severity": "CRITICAL",
+      "summary": "OwnerAssignment: H1_OBSTRUCTION (compatibility: 0.00, theta: 1.5708 rad)",
+      "claims_involved": [
+        "CC7.2: No control owner assigned"
+      ],
+      "constraint_chain": [
+        "OwnerAssignment: FAIL"
+      ],
+      "energy_concentration": [
+        {
+          "label": "OwnerAssignment",
+          "energy": 1.9602,
+          "theta": 1.570796,
+          "compatibility": 0.0
+        }
+      ],
+      "verdict": "H1_OBSTRUCTION",
+      "remediation": "Assign a control owner"
+    },
+    {
+      "obstruction_id": "O-005",
+      "obstruction_type": "H1",
+      "severity": "CRITICAL",
+      "summary": "FrequencyMatch: H1_OBSTRUCTION (compatibility: 0.06, theta: 1.4810 rad)",
+      "claims_involved": [
+        "CC7.2: Frequency 'annual' is less than required 'continuous'"
+      ],
+      "constraint_chain": [
+        "FrequencyMatch: FAIL"
+      ],
+      "energy_concentration": [
+        {
+          "label": "FrequencyMatch",
+          "energy": 1.784489,
+          "theta": 1.481037,
+          "compatibility": 0.0571
+        }
+      ],
+      "verdict": "H1_OBSTRUCTION",
+      "remediation": "Increase operating frequency to meet requirements"
+    }
+  ]
+}

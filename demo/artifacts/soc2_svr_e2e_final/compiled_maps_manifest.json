@@ -1,0 +1,117 @@
+{
+  "purity_gate_rho_max": 0.99,
+  "stalk_dim": 8,
+  "total_maps": 24,
+  "violations": 0,
+  "sigma_max_global": 0.9900000000000002,
+  "edges": [
+    {
+      "edge_idx": 0,
+      "constraint": "PolicyCoverage",
+      "verdict": "PASS",
+      "theta": 0.0,
+      "dirichlet_energy": 21.874276,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 1,
+      "constraint": "EvidenceCoverage",
+      "verdict": "PASS",
+      "theta": 0.0,
+      "dirichlet_energy": 18.599784,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 2,
+      "constraint": "AuditPeriodDate",
+      "verdict": "PASS",
+      "theta": 0.039593,
+      "dirichlet_energy": 9.546851,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 3,
+      "constraint": "OwnerAssignment",
+      "verdict": "PASS",
+      "theta": 0.0,
+      "dirichlet_energy": 14.832167,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 4,
+      "constraint": "FrequencyMatch",
+      "verdict": "PASS",
+      "theta": 0.0,
+      "dirichlet_energy": 19.587167,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 5,
+      "constraint": "CriterionMapping",
+      "verdict": "PASS",
+      "theta": 0.0,
+      "dirichlet_energy": 9.018439,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 6,
+      "constraint": "PolicyCoverage",
+      "verdict": "FAIL",
+      "theta": 1.570796,
+      "dirichlet_energy": 10.172207,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 7,
+      "constraint": "EvidenceCoverage",
+      "verdict": "FAIL",
+      "theta": 1.413717,
+      "dirichlet_energy": 27.107392,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 8,
+      "constraint": "AuditPeriodDate",
+      "verdict": "FAIL",
+      "theta": 1.257067,
+      "dirichlet_energy": 11.850481,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 9,
+      "constraint": "OwnerAssignment",
+      "verdict": "FAIL",
+      "theta": 1.570796,
+      "dirichlet_energy": 8.918553,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 10,
+      "constraint": "FrequencyMatch",
+      "verdict": "FAIL",
+      "theta": 1.481037,
+      "dirichlet_energy": 10.617847,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    },
+    {
+      "edge_idx": 11,
+      "constraint": "CriterionMapping",
+      "verdict": "PASS",
+      "theta": 0.0,
+      "dirichlet_energy": 11.838155,
+      "sigma_max_u": 0.99,
+      "sigma_max_v": 0.99
+    }
+  ]
+}

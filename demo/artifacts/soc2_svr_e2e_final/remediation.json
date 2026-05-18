@@ -1,0 +1,168 @@
+{
+  "remediation_summary": {
+    "repairs_required": 5,
+    "critical_repairs": 2,
+    "high_repairs": 3,
+    "medium_repairs": 0,
+    "low_repairs": 0,
+    "total_obstructions_addressed": 5,
+    "severity_basis": "repair_action_priority"
+  },
+  "minimal_repair_set": [
+    {
+      "repair_id": "R-001",
+      "repair_type": "ADD_ASSIGNMENT",
+      "target": "OwnerAssignment",
+      "expected_change": "Assign an owner or responsible party for OwnerAssignment",
+      "affected_constraints": [
+        "OwnerAssignment"
+      ],
+      "severity": "CRITICAL",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-003",
+      "repair_type": "EXTEND_COVERAGE",
+      "target": "PolicyCoverage",
+      "expected_change": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+      "affected_constraints": [
+        "PolicyCoverage"
+      ],
+      "severity": "CRITICAL",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-002",
+      "repair_type": "ADD_EVIDENCE",
+      "target": "EvidenceCoverage",
+      "expected_change": "Attach missing evidence for EvidenceCoverage",
+      "affected_constraints": [
+        "EvidenceCoverage"
+      ],
+      "severity": "HIGH",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-004",
+      "repair_type": "INCREASE_FREQUENCY",
+      "target": "FrequencyMatch",
+      "expected_change": "Increase operating frequency for FrequencyMatch (observed: annual, expected: continuous)",
+      "affected_constraints": [
+        "FrequencyMatch"
+      ],
+      "severity": "HIGH",
+      "estimated_obstruction_reduction": 1
+    },
+    {
+      "repair_id": "R-005",
+      "repair_type": "UPDATE_DATE",
+      "target": "AuditPeriodDate",
+      "expected_change": "Obtain current evidence dated within the audit window for AuditPeriodDate (observed: 2025-01-15, expected: 2026-05-17)",
+      "affected_constraints": [
+        "AuditPeriodDate"
+      ],
+      "severity": "HIGH",
+      "estimated_obstruction_reduction": 1
+    }
+  ],
+  "priority_repair_plan": [
+    {
+      "priority": 1,
+      "repair_id": "R-001",
+      "repair_type": "ADD_ASSIGNMENT",
+      "target": "OwnerAssignment",
+      "action": "Assign an owner or responsible party for OwnerAssignment",
+      "severity": "CRITICAL",
+      "submission_risk": 2,
+      "effort": 1,
+      "risk_reduction_ratio": 14.0
+    },
+    {
+      "priority": 2,
+      "repair_id": "R-002",
+      "repair_type": "ADD_EVIDENCE",
+      "target": "EvidenceCoverage",
+      "action": "Attach missing evidence for EvidenceCoverage",
+      "severity": "HIGH",
+      "submission_risk": 4,
+      "effort": 2,
+      "risk_reduction_ratio": 9.0
+    },
+    {
+      "priority": 3,
+      "repair_id": "R-005",
+      "repair_type": "UPDATE_DATE",
+      "target": "AuditPeriodDate",
+      "action": "Obtain current evidence dated within the audit window for AuditPeriodDate (observed: 2025-01-15, expected: 2026-05-17)",
+      "severity": "HIGH",
+      "submission_risk": 3,
+      "effort": 2,
+      "risk_reduction_ratio": 7.5
+    },
+    {
+      "priority": 4,
+      "repair_id": "R-003",
+      "repair_type": "EXTEND_COVERAGE",
+      "target": "PolicyCoverage",
+      "action": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+      "severity": "CRITICAL",
+      "submission_risk": 4,
+      "effort": 3,
+      "risk_reduction_ratio": 6.67
+    },
+    {
+      "priority": 5,
+      "repair_id": "R-004",
+      "repair_type": "INCREASE_FREQUENCY",
+      "target": "FrequencyMatch",
+      "action": "Increase operating frequency for FrequencyMatch (observed: annual, expected: continuous)",
+      "severity": "HIGH",
+      "submission_risk": 2,
+      "effort": 3,
+      "risk_reduction_ratio": 4.0
+    }
+  ],
+  "assurance_completion_pack": {
+    "evidence_to_collect": [
+      {
+        "repair_id": "R-002",
+        "description": "Attach missing evidence for EvidenceCoverage",
+        "target": "EvidenceCoverage"
+      },
+      {
+        "repair_id": "R-005",
+        "description": "Obtain current evidence dated within the audit window for AuditPeriodDate (observed: 2025-01-15, expected: 2026-05-17)",
+        "target": "AuditPeriodDate"
+      }
+    ],
+    "owners_to_assign": [
+      {
+        "repair_id": "R-001",
+        "description": "Assign an owner or responsible party for OwnerAssignment",
+        "target": "OwnerAssignment"
+      }
+    ],
+    "policy_updates_required": [
+      {
+        "repair_id": "R-003",
+        "description": "Extend policy coverage to include required topics for PolicyCoverage (observed: {'incident_monitoring', 'anomaly_detection', 'alerting'}, expected: {'incident_response'})",
+        "target": "PolicyCoverage"
+      }
+    ],
+    "control_mappings_to_fix": [],
+    "recheck_required": true,
+    "recheck_command": "python -m sigma.satya.verify --profile soc2_tsc_v1 --recheck pending",
+    "expected_post_fix_result": "PASS_OR_REVIEW_REQUIRED",
+    "closure_receipt_required": true,
+    "residual_risk_notes": []
+  },
+  "repair_strategy": "deterministic_obstruction_core_hitting_set",
+  "repair_set_hash": "0ff27ba570be83d3",
+  "repair_minimality_claim": "minimal_over_detected_obstruction_cores",
+  "closure_receipt": {
+    "closure_receipt_required": true,
+    "finding_receipt_id": "SATYA-20260518-4C2388CC",
+    "repair_set_hash_to_verify": "0ff27ba570be83d3",
+    "expected_closure_type": "compliance_closure"
+  }
+}

@@ -1,0 +1,10 @@
+SVR Signature Verification Report
+Receipt ID: SATYA-20260518-4C2388CC
+Public Key: 85a46274cd49c2a8f2ac0baa807b4366ad41049b003d7b61429b415cd8234603
+Fingerprint: e6ac98459c4467298a15d881f643a0a5b20ad21ad50bf5ab449986aaec835e6d
+Canonical payload: 13431 bytes
+Canonical hash: 5a206e9e229827a65c620d23f2bae6bceded2087fd1b0a9fa0d4edaa94aba324
+Signature: 3ec6bc968a274ed2a2bd5728bdd7c31f4333da0a8191f04ed55479f4d56bbf323339fef164cfb7f08b4e35aa82dd9d46cd411cf85f0de34c648eaa512c3c2c01
+Signature status: VALID
+Verification result: VALID
+Receipt validation errors: none

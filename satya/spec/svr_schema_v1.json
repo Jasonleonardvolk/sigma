@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://invariant.pro/schemas/svr/1.0/receipt.json",
-  "title": "SATYA Verification Receipt (SVR) v1.0",
-  "description": "Cryptographically signed, point-in-time verification attestation produced by the SATYA engine.",
+  "title": "Signed Verification Receipt (SVR) v1.0",
+  "description": "Cryptographically signed, point-in-time verification attestation. Vendor-neutral open standard. Any compliant engine may issue SVRs.",
   "type": "object",
   "required": [
     "svr_version",
@@ -249,14 +249,18 @@
         },
         "verdict": {
           "type": "string",
+          "description": "Per-item result. Values depend on domain and receipt_type.",
           "enum": [
+            "PASS",
+            "FAIL",
+            "INSUFFICIENT_EVIDENCE",
+            "AMBIGUOUS_WITH_BOUNDS",
             "SUPPORTED",
             "UNSUPPORTED",
             "CONTRADICTED",
             "CITATION_VERIFIED",
             "CITATION_MISMATCH",
             "SOURCE_NOT_FOUND",
-            "INSUFFICIENT_EVIDENCE",
             "OUT_OF_SCOPE",
             "NEEDS_HUMAN_REVIEW",
             "citation_identity_mismatch",

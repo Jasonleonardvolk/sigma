@@ -1,4 +1,4 @@
-# SOC 2 Verification Receipt Demo
+# SOC 2 Signed Verification Receipt (SVR) Demo
 
 This demo runs the complete SATYA/SIGMA verification chain:
 SOC 2 facts -> domain profile -> algebraic constraints -> propagation ->
@@ -15,7 +15,7 @@ Ed25519 signature verification.
 
     python -m sigma.demo.demo_soc2_svr_end_to_end --out sigma\demo\artifacts\soc2_svr_e2e_20260517
 
-Writes six files:
+Writes seven files:
 
     receipt.svr.json              Complete signed SVR receipt
     proof_sketches.json           Human-readable obstruction explanations
@@ -23,16 +23,18 @@ Writes six files:
     compiled_maps_manifest.json   Purity-Gate-certified map diagnostics
     run_summary.txt               One-page run summary
     signature_verification.txt    Ed25519 verification report
+    remediation.json              Deterministic minimal repair set
 
 ## Observed Run (May 17, 2026)
 
     12 constraints evaluated
     0 Purity Gate violations
-    12 obstructed edges (5 from FAIL constraints on CC7.2)
+    5 obstructed edges
     5 proof sketches: 4 critical, 1 high
+    5 remediation repairs: 2 critical-priority, 3 high-priority
     VALID signature
     VALID receipt
-    43.4 ms total runtime
+    24.9 ms total runtime
 
 ## What It Proves
 
@@ -88,5 +90,5 @@ In this demo, the full signed verification receipt was produced in
 
 SATYA compiles domain-specific SOC 2 constraints into Purity-Gate-certified
 sheaf restriction maps, detects non-gluing through H1/Dirichlet energy,
-and emits a canonically signed SVR receipt. Zero ML. Zero GPU.
-Zero parameters. Fully deterministic. Patent pending.
+and emits a canonically signed SVR receipt. Zero parameters in the
+verification loop. Fully deterministic. Patent pending.

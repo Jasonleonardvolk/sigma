@@ -1,4 +1,4 @@
-SATYA VERIFICATION RECEIPT (SVR) SPECIFICATION
+SIGNED VERIFICATION RECEIPT (SVR) SPECIFICATION
 Version 1.0
 May 17, 2026 | Invariant Research
 Patent Pending
@@ -7,7 +7,7 @@ Patent Pending
 1. OVERVIEW
 ========================================================================
 
-A SATYA Verification Receipt (SVR) is a cryptographically signed,
+A Signed Verification Receipt (SVR) is a cryptographically signed,
 point-in-time attestation that a deterministic verification engine
 audited a specific input against specific sources and produced a
 specific result.
@@ -18,7 +18,7 @@ issued that supersedes the prior one via a provenance chain.
 
 The SVR format is domain-agnostic. The same envelope carries legal
 citation audits, SOC 2 control evidence audits, RAG grounding audits,
-clinical source support audits, and all other SATYA verticals. Domain
+clinical source support audits, and all other verification verticals. Domain
 semantics are encoded in the checked_items array and the mode field.
 
 ========================================================================

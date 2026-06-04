@@ -1,5 +1,7 @@
 SIGNED VERIFICATION RECEIPT (SVR) SPECIFICATION
 Version 1.0
+Registered Media Type: application/vnd.svr.receipt+json
+File Extension: .svr.json
 May 17, 2026 | Invariant Research
 Patent Pending
 

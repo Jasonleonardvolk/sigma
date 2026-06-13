@@ -1,0 +1,54 @@
+{
+  "svr_version": "1.0",
+  "receipt_id": "SIGMA-20260610-B5D8F2E1",
+  "receipt_type": "agent",
+  "mode": "full_verification",
+  "receipt_status": "evaluation",
+  "input_hash": "b5d8f2e1b4c7a6d9",
+  "source_bundle_hash": "c6d9e2f5a8c1d4e7",
+  "verdict": "unsafe_to_submit",
+  "safe_to_rely": false,
+  "filing_safety_status": "UNSAFE_TO_SUBMIT",
+  "reason": "Structural contradictions detected. H^1 cohomology group is nontrivial, indicating global inconsistencies that no local fix can resolve.",
+  "items_checked": 4,
+  "items_passed": 2,
+  "items_failed": 2,
+  "items_excluded": 0,
+  "checked_items": [
+    {
+      "item_id": 1,
+      "claim_or_authority": "SIGMA sheaf cohomology engine: H^1 obstruction check",
+      "verdict": "FAIL",
+      "reason": "H^1 cohomology group has dimension 2. Two independent global obstructions detected."
+    },
+    {
+      "item_id": 2,
+      "claim_or_authority": "SIGMA lazy-vs-full recomputation check",
+      "verdict": "PASS",
+      "reason": "Lazy incremental result matches full recomputation. Measured drift: 0."
+    },
+    {
+      "item_id": 3,
+      "claim_or_authority": "SIGMA coboundary operator",
+      "verdict": "FAIL",
+      "reason": "Coboundary norm exceeds tolerance at edges (Policy, Procurement) and (Audit, Compliance). Dirichlet energy concentrated at these locations."
+    },
+    {
+      "item_id": 4,
+      "claim_or_authority": "SIGMA cellular decomposition",
+      "verdict": "PASS",
+      "reason": "Cell count invariant maintained. 847 cells in final state."
+    }
+  ],
+  "sheaf_metrics": {
+    "h1_dimension": 2,
+    "obstruction_count": 2,
+    "cells_total": 847
+  },
+  "timestamp_utc": "2026-06-10T12:05:00Z",
+  "engine_version": "sigma-0.9.0",
+  "verification_method": "deterministic_algebraic",
+  "public_key": "unsigned",
+  "signature": "",
+  "signature_status": "UNSIGNED"
+}

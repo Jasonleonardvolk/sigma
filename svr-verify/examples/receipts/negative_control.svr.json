@@ -1,0 +1,54 @@
+{
+  "svr_version": "1.0",
+  "receipt_id": "SIGMA-20260610-A3C9E7B2",
+  "receipt_type": "agent",
+  "mode": "full_verification",
+  "receipt_status": "evaluation",
+  "input_hash": "a3c9e7b201f84d6e",
+  "source_bundle_hash": "d4e7f0b2c5a8d1e4",
+  "verdict": "verified",
+  "safe_to_rely": true,
+  "filing_safety_status": "SAFE_TO_SUBMIT",
+  "reason": "Negative control: signed but never registered.",
+  "items_checked": 4,
+  "items_passed": 4,
+  "items_failed": 0,
+  "items_excluded": 0,
+  "checked_items": [
+    {
+      "item_id": 1,
+      "claim_or_authority": "SIGMA sheaf cohomology engine: H^1 obstruction check",
+      "verdict": "PASS",
+      "reason": "H^1 cohomology group is trivial. No global obstructions detected."
+    },
+    {
+      "item_id": 2,
+      "claim_or_authority": "SIGMA lazy-vs-full recomputation check",
+      "verdict": "PASS",
+      "reason": "Lazy incremental result matches full recomputation. Measured drift: 0."
+    },
+    {
+      "item_id": 3,
+      "claim_or_authority": "SIGMA coboundary operator",
+      "verdict": "PASS",
+      "reason": "Coboundary norm within tolerance. No restriction map violations."
+    },
+    {
+      "item_id": 4,
+      "claim_or_authority": "SIGMA cellular decomposition",
+      "verdict": "PASS",
+      "reason": "Cell count invariant maintained across all 15M streaming edits. 25,473 cells in final state."
+    }
+  ],
+  "sheaf_metrics": {
+    "h1_dimension": 0,
+    "obstruction_count": 0,
+    "cells_total": 25473
+  },
+  "timestamp_utc": "2026-06-10T12:00:00Z",
+  "engine_version": "sigma-0.9.0",
+  "verification_method": "deterministic_algebraic",
+  "public_key": "4508a07aa941707f3eb2db94c8897a80b2c1197476b6de213ac273df7d86c4ff",
+  "signature": "206a168623d6538360db8910001b2649bc6cf6fbdb5a82c445050132c800cf63b7dce045390024a6d6c85e75b1f1254fc2c2ea4e5e911acd9fea104aaa3d5202",
+  "signature_status": "VALID"
+}

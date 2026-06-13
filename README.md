@@ -18,12 +18,14 @@ SIGMA is a post-generation verification layer. It takes structured knowledge (a 
 | | |
 |---|---|
 | **Dataset** | Stanford SNAP Enron (36,692 accounts, 183,831 edges) |
+| **Analyzed core** | 21,309 vertices, 166,039 edges (3-core) |
 | **Topology** | Power-law (degree CV = 2.609, hub max degree 1,141) |
-| **Pipeline time** | 21 seconds (warm cache, 4-seed validated) |
-| **Per-vertex cost** | 0.37 ms |
-| **Verification cells** | 3,760 (identical across all seeds) |
+| **Verification cells** | 446 (bit-identical across 4 seeds) |
+| **Nerve edges** | 70 |
 | **Nerve max dimension** | 2 |
-| **Peak memory** | 641 MB |
+| **Sheaf Laplacian** | 170,472 x 170,472 |
+| **Full decomposition time** | ~2m15s (4-seed validated) |
+| **Peak memory** | ~700 MB |
 | **Hardware** | Single laptop (i9-13900H, 64GB RAM, no GPU) |
 
 The sheaf Laplacian is 170,472 x 170,472. A dense eigensolve takes ~14 hours. SIGMA decomposes the graph so no eigensolve ever sees more than 500 vertices. The O(n^3) doesn't disappear. It gets factored:
@@ -68,20 +70,22 @@ Obstruction dim:  H^1 = 3
 
 ## Scale
 
-Validated on both geometric (synthetic) and power-law (real-world) topologies.
+Streaming-from-zero incremental verification on synthetic scale-free graphs,
+validated to 5 million vertices. The real-world power-law result is the Enron
+decomposition above.
 
 ```
-Vertices    Topology          Cells    Cost/Entity    Peak RAM    Crashes
-------------------------------------------------------------------------
-21,309      Power-law (Enron) 3,760    0.37 ms        641 MB      0
-50,000      Geometric         1,180    0.52 ms        1.7 GB      0
-100,000     Power-law (BA)    7,028    0.60 ms        1.3 GB      0
-100,000     Geometric         2,552    0.51 ms        3.2 GB      0
-250,000     Geometric         5,987    0.94 ms        7.5 GB      0
-1,000,000   Geometric         23,123   0.85 ms        28.3 GB     0
+Vertices    Edit Mean    Query p99    Drift    Cells
+----------------------------------------------------------
+100,000     0.046 ms     0.010 ms     0        421
+250,000     0.051 ms     0.010 ms     0        1,096
+1,000,000   0.063 ms     0.013 ms     0        4,611
+5,000,000   0.035 ms     --           0        25,473
 ```
 
-47x growth in vertices. Per-entity cost: **flat.** Zero crashes at all scales.
+V grew 50x. Per-edit cost stayed **flat.** Zero drift at every checkpoint,
+verified by full recomputation at 5M (incremental H^1 = 103,690 equals batch
+recomputation H^1 = 103,690).
 
 ## Decomposition Pipeline
 
@@ -100,10 +104,10 @@ The O(n^3) eigensolve is factored into bounded subproblems.
 The cube is imprisoned inside a constant.
 
 The pipeline handles power-law graphs, geometric graphs, and
-mixed topologies. Validated from V=21K to V=1M with constant
-per-vertex cost.
+mixed topologies. Validated from V=21K to V=5M, with constant
+per-edit cost in the streaming path.
 
-Patent pending. Pipeline details are proprietary.
+Patent protection is being pursued. Pipeline details are proprietary.
 
 ## Architecture
 
@@ -129,15 +133,18 @@ Knowledge Graph
 ## Multi-Seed Reproducibility
 
 ```
-Seed      Time     ms/vertex    Cells    Nerve Edges    Max Dim
----------------------------------------------------------------
-42        34.0s    0.433        3,760    254            2
-137       25.8s    0.451        3,760    254            2
-2718      21.1s    0.374        3,760    254            2
-31415     21.1s    0.370        3,760    254            2
+Seed      Cells    Nerve Edges    Max Dim
+------------------------------------------
+42        446      70             2
+137       446      70             2
+2718      446      70             2
+31415     446      70             2
 ```
 
-3,760 cells, 254 nerve edges, max dim 2: **identical across all seeds.** The partition structure depends only on graph topology, not sheaf data. Deterministic. Reproducible. Every time.
+446 cells, 70 nerve edges, max dim 2: **bit-identical across all four seeds.**
+Full decomposition ran about 2m7s to 2m28s across seeds. The partition
+structure depends only on graph topology, not sheaf data. Deterministic.
+Reproducible. Every time.
 
 ## What This Is Not
 
@@ -147,10 +154,12 @@ Seed      Time     ms/vertex    Cells    Nerve Edges    Max Dim
 
 ## Status
 
-- Provisional patent filed (U.S. App# 64/023,418, March 2026)
-- ICML 2026 AI4Math Workshop submission in progress (deadline May 25)
+- **Patent protection:** patent applications are on file covering the methods described here (details under NDA)
+- Paper: [Incremental Sheaf Cohomology on Cellular Complexes (arXiv:2606.04227)](https://arxiv.org/abs/2606.04227)
+- Submitted to the ICML 2026 AI4Math Workshop (Submission #192)
 - Preprint: [Zenodo DOI 10.5281/zenodo.19598076](https://zenodo.org/records/19598076)
-- HuggingFace demo: [jasonlvolk/sigma-enron-demo](https://huggingface.co/spaces/jasonlvolk/sigma-enron-demo)
+- Open source: [sigma-guard](https://github.com/Jasonleonardvolk/sigma-guard) and [svr-verify](https://github.com/Jasonleonardvolk/svr-verify), both on PyPI
+- Hugging Face: [SATYA SVR Verifier](https://huggingface.co/spaces/jasonlvolk/satya-svr-verifier) (also an MCP tool) and the [SIGMA Enron demo](https://huggingface.co/spaces/jasonlvolk/sigma-enron-demo)
 
 ## Applications
 

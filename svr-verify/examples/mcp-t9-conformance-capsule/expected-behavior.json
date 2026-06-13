@@ -1,0 +1,44 @@
+{
+  "capsule": "mcp-t9-receipt-backed-verification",
+  "profile": "svr",
+  "media_type": "application/vnd.svr.receipt+json",
+  "cases": [
+    {
+      "name": "pass_valid",
+      "response": "response.pass.json",
+      "receipt": "receipt.pass.svr.json",
+      "expected_signature": "unsigned",
+      "expected_response_hash_match": true,
+      "expected_verdict": "PASS",
+      "expected_host_action": "allow"
+    },
+    {
+      "name": "fail_valid_quarantine",
+      "response": "response.fail.json",
+      "receipt": "receipt.fail.svr.json",
+      "expected_signature": "unsigned",
+      "expected_response_hash_match": true,
+      "expected_verdict": "FAIL",
+      "expected_host_action": "quarantine"
+    },
+    {
+      "name": "invalid_signature",
+      "response": "response.pass.json",
+      "receipt": "receipt.invalid-signature.svr.json",
+      "expected_signature": "invalid",
+      "expected_response_hash_match": true,
+      "expected_verdict": "UNKNOWN",
+      "expected_host_action": "reject"
+    },
+    {
+      "name": "wrong_response_hash",
+      "response": "response.pass.json",
+      "receipt": "receipt.wrong-response-hash.svr.json",
+      "expected_signature": "unsigned",
+      "expected_response_hash_match": false,
+      "expected_verdict": "UNKNOWN",
+      "expected_host_action": "reject"
+    }
+  ],
+  "quarantine_record_example": "quarantine-record.example.json"
+}

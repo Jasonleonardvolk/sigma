@@ -20,7 +20,7 @@
 #   Set-Location "C:\Dev\kha"
 #   python -m sigma.demo.demo_soc2_svr_end_to_end
 #
-# May 17, 2026 | Invariant Research | Patent Pending
+# May 17, 2026 | Invariant Research
 # All code is plain ASCII.
 
 import json

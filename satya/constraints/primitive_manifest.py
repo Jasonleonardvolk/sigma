@@ -6,7 +6,7 @@
 # receipt metadata. The manifest hash is included in SVR
 # receipts to prove which primitive set was active at audit time.
 #
-# May 17, 2026 | Invariant Research | Patent Pending
+# May 17, 2026 | Invariant Research
 # All code is plain ASCII.
 
 import hashlib

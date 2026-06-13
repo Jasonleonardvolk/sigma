@@ -1,0 +1,28 @@
+{
+  "svr_version": "1.0",
+  "receipt_id": "SATYA-20260604-INS-PASS",
+  "receipt_type": "compliance",
+  "mode": "ai_liability_demo",
+  "receipt_status": "evaluation",
+  "input_hash": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a",
+  "verdict": "supported",
+  "safe_to_rely": true,
+  "filing_safety_status": "SAFE_TO_SUBMIT",
+  "reason": "All checked claims are supported by uploaded evidence within documented scope",
+  "items_checked": 3,
+  "items_passed": 3,
+  "items_failed": 0,
+  "items_excluded": 0,
+  "checked_items": [
+    {"item_id":1,"claim_or_authority":"CC6.1 Logical Access Controls","verdict":"PASS","reason":"Evidence confirms logical access controls are documented and enforced"},
+    {"item_id":2,"claim_or_authority":"CC6.3 Role-Based Access","verdict":"PASS","reason":"Role-based access matrix matches organizational policy"},
+    {"item_id":3,"claim_or_authority":"CC6.1 Access Review Cadence","verdict":"PASS","reason":"Quarterly access review schedule confirmed in evidence. AI recommendation correctly scoped to access-review readiness, not vendor-risk."}
+  ],
+  "verification_parameters": {"parameter_count":0,"ml_models_used":0,"gpu_required":false,"training_data_required":false,"deterministic_replay":true},
+  "timestamp_utc": "2026-06-04T14:33:00+00:00",
+  "engine_version": "satya/0.9.0 sigma/1.0.0",
+  "verification_method": "deterministic_algebraic",
+  "public_key": "c9c2481b95fa053ba8dfc1c63f43e153662fb4d1ea8e43d82826001466a19cef",
+  "signature": "438d7ba44923db05d5e0ca295d0752db5d2b569b156b9a5a669556806c777f67ec51cd30e56f7b850bb1eeed0f2286b2df8487f6aaceda24161f54f1b12e2108",
+  "signature_status": "VALID"
+}

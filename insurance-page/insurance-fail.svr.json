@@ -1,0 +1,29 @@
+{
+  "svr_version": "1.0",
+  "receipt_id": "SATYA-20260604-INS-FAIL",
+  "receipt_type": "compliance",
+  "mode": "ai_liability_demo",
+  "receipt_status": "evaluation",
+  "input_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "verdict": "contradicted",
+  "safe_to_rely": false,
+  "filing_safety_status": "UNSAFE_TO_SUBMIT",
+  "reason": "Scope mismatch: cited control covers access review, not vendor-risk review",
+  "items_checked": 4,
+  "items_passed": 2,
+  "items_failed": 2,
+  "items_excluded": 0,
+  "checked_items": [
+    {"item_id":1,"claim_or_authority":"CC6.1 Logical Access Controls","verdict":"PASS","reason":"Evidence confirms logical access controls are documented and enforced"},
+    {"item_id":2,"claim_or_authority":"CC6.3 Role-Based Access","verdict":"PASS","reason":"Role-based access matrix matches organizational policy"},
+    {"item_id":3,"claim_or_authority":"CC9.2 Vendor Risk Management","verdict":"FAIL","reason":"AI agent cited CC9.2 to support vendor-risk readiness, but uploaded evidence covers access-review scope only. No vendor-risk assessment documentation found in evidence graph."},
+    {"item_id":4,"claim_or_authority":"CC9.2 Scope Alignment","verdict":"FAIL","reason":"Control scope mismatch: policy document defines CC9.2 coverage as 'periodic access review of third-party accounts,' not 'vendor risk assessment process.' The AI recommendation extends the control beyond its documented scope."}
+  ],
+  "verification_parameters": {"parameter_count":0,"ml_models_used":0,"gpu_required":false,"training_data_required":false,"deterministic_replay":true},
+  "timestamp_utc": "2026-06-04T14:32:00+00:00",
+  "engine_version": "satya/0.9.0 sigma/1.0.0",
+  "verification_method": "deterministic_algebraic",
+  "public_key": "c9c2481b95fa053ba8dfc1c63f43e153662fb4d1ea8e43d82826001466a19cef",
+  "signature": "16dc585f0b19fab3cd24e97d564111fde268ba0d8975f49ce84acf2c92d17ecb9f9f4cf17a5857d88e8195e41d07f9b6c6f9176011a937509b4449f9bf91de00",
+  "signature_status": "VALID"
+}

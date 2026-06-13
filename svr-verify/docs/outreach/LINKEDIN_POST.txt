@@ -1,0 +1,23 @@
+Your AI agent just drafted a contract, reviewed a filing, flagged a risk, and recommended an action.
+
+Can you prove any of that was verified?
+
+Not "the platform says it was verified." Can YOU prove it? To your auditor. To opposing counsel. To the regulator who just asked for evidence of reasonable care. To the insurer adjusting your premium based on how you govern AI output.
+
+Right now, the answer is no. Every major platform verifies inside its own walls. The moment that work product leaves the platform, the verification disappears. You're left holding an output with no receipt.
+
+That's the gap. Not whether AI can be verified. Whether the proof travels.
+
+We think every agent action should leave a receipt. A signed, portable, independently verifiable receipt that says: here is what was checked, here is what failed, here is the repair path, and here is the cryptographic signature you can verify without calling us.
+
+So we published the specification as an open standard. Any engine can issue one. Any person can verify one. Python, JavaScript, Go. MIT licensed. One command: pip install svr-verify.
+
+The receipt declares its verification method. Deterministic or probabilistic. Zero parameters or seventy billion. Replayable or not. That field is required, not optional. The market reads it. The insurer reads it. The regulator reads it.
+
+We are not building another platform. We are building the receipt layer underneath all of them.
+
+Spec: github.com/Jasonleonardvolk/svr-verify
+PyPI: pypi.org/project/svr-verify
+invariant.pro
+
+#AIGovernance #AgentEconomy #TrustInfrastructure #Compliance #AIVerification #LegalTech #RegTech #Cybersecurity

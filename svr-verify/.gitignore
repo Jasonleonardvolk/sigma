@@ -1,9 +1,15 @@
 __pycache__/
 *.pyc
 *.egg-info/
+*.egg
 dist/
 build/
 .eggs/
-*.egg
 desktop.ini
 .venv/
+.pytest_cache/
+*.signed.svr.json
+examples/receipts/demo_output.svr.json
+
+# Generated transparency bundles (run artifacts, reproducible from a node)
+examples/receipts/*.bundle.json
